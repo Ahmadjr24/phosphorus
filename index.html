@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phosphorus — The Periodic Table, Fully Loaded</title>
+<meta name="description" content="Phosphorus is an interactive periodic table. Click any element for full details: atomic mass, category, electron configuration, discovery, and more.">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="#top">
+      <img src="assets/logo.svg" alt="Phosphorus logo" class="brand-logo">
+      <span class="brand-name">PHOSPHORUS</span>
+    </a>
+    <p class="tagline">The periodic table, fully loaded.</p>
+  </div>
+</header>
+
+<main id="top">
+  <section class="controls">
+    <div class="search-wrap">
+      <input id="search" type="text" placeholder="Search by name, symbol, or number…" autocomplete="off">
+    </div>
+    <div class="legend" id="legend"></div>
+  </section>
+
+  <section class="table-wrap">
+    <div class="ptable" id="ptable" role="grid" aria-label="Periodic table of elements"></div>
+  </section>
+
+  <p class="hint">Click any element to see its full profile — mass, phase, electron configuration, discovery, and more.</p>
+</main>
+
+<div class="overlay" id="overlay"></div>
+<aside class="panel" id="panel" aria-hidden="true">
+  <button class="panel-close" id="panelClose" aria-label="Close">&times;</button>
+  <div class="panel-content" id="panelContent"></div>
+</aside>
+
+<footer class="site-footer">
+  <p>Phosphorus — 118 elements, zero filler. Data sourced from public chemistry references.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
