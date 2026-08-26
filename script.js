@@ -41,9 +41,47 @@ function resolveColor(colorExpr) {
   return colorExpr;
 }
 
+const CATEGORY_INFO = {
+  'alkali metal': 'Group 1 elements (excluding hydrogen). Soft, shiny, and highly reactive — each atom has a single outer electron it readily gives up to form a +1 ion, which is why alkali metals react violently with water.',
+  'alkaline earth metal': 'Group 2 elements. Reactive metals that lose two outer electrons to form +2 ions — less reactive than the alkali metals next to them on the table, but still far from inert.',
+  'transition metal': 'Groups 3–12. Metals with partially filled d-orbitals, which lets them form ions with more than one possible charge, act as catalysts, and produce many brightly colored compounds.',
+  'post-transition metal': 'Metals to the right of the transition metals. Softer and with lower melting points than transition metals, sometimes behaving more like their nonmetal neighbors on the table.',
+  'lanthanide': 'The 15 elements from lanthanum to lutetium. Filling the inner 4f electron shell gives them nearly identical chemical properties, which historically made them very difficult to separate from one another.',
+  'actinide': 'The 15 elements from actinium to lawrencium. Filling the inner 5f electron shell; all are radioactive, and most of the heavier actinides only exist because they were made in a lab.',
+  'metalloid': 'Elements sitting on the border between metals and nonmetals, sharing properties of both. Several are semiconductors, which is why silicon and germanium anchor the electronics industry.',
+  'diatomic nonmetal': 'Nonmetals that occur as two-atom molecules (like H₂, N₂, and O₂) in their pure, natural state rather than as single atoms or larger clusters.',
+  'polyatomic nonmetal': 'Nonmetals that bond into larger multi-atom structures rather than simple two-atom molecules — sulfur forms S₈ rings, phosphorus forms P₄ clusters, and carbon builds extended networks like graphite and diamond.',
+  'noble gas': 'Group 18 elements. Their outer electron shell is completely full, so they almost never react with anything — the most chemically "content" elements on the table.',
+};
+
+const CATEGORY_GUESS_ORDER = ['noble gas', 'metalloid', 'post-transition metal', 'transition metal', 'alkali metal', 'alkaline earth metal', 'lanthanide', 'actinide', 'diatomic nonmetal', 'polyatomic nonmetal'];
+
+function categoryGuess(cat) {
+  return CATEGORY_GUESS_ORDER.find(key => cat.includes(key)) || null;
+}
+
 function categoryLabel(cat) {
-  if (cat.startsWith('unknown')) return 'unconfirmed';
+  if (cat.startsWith('unknown')) {
+    const guess = categoryGuess(cat);
+    return guess ? `predicted ${guess}` : 'unconfirmed category';
+  }
   return cat;
+}
+
+function categoryInfo(cat) {
+  if (CATEGORY_INFO[cat]) return CATEGORY_INFO[cat];
+  if (cat.startsWith('unknown')) {
+    const base = 'This element is synthetic and superheavy — too rare and short-lived (often existing for a fraction of a second) to test directly, so its category is a prediction based on periodic trends rather than a confirmed measurement.';
+    const guess = categoryGuess(cat);
+    return guess ? `${base} It's predicted to be a ${guess}. ${CATEGORY_INFO[guess]}` : base;
+  }
+  return 'No classification notes available for this category yet.';
+}
+
+function fmtDiscoveryYear(year) {
+  if (year == null) return '—';
+  if (year < 0) return `~${Math.abs(year).toLocaleString()} BCE (known since antiquity)`;
+  return `${year}`;
 }
 
 function hexToRgb(hex) {
@@ -587,7 +625,10 @@ function openPanel(el) {
     <div class="panel-number">Element ${el.number}</div>
     <div class="panel-symbol" style="color:${categoryColor(el.category)}">${el.symbol}</div>
     <div class="panel-name">${el.name}</div>
-    <span class="panel-category">${categoryLabel(el.category)}</span>
+    <button type="button" class="panel-category" id="categoryTag" aria-expanded="false">
+      ${categoryLabel(el.category)} <span class="info-icon">ⓘ</span>
+    </button>
+    <div class="category-info" id="categoryInfo" hidden>${categoryInfo(el.category)}</div>
 
     <div class="tabs">
       <button class="tab-btn active" data-tab="overview">Overview</button>
@@ -614,8 +655,8 @@ function openPanel(el) {
       ${el.shells ? `<div class="panel-shells">${el.shells.map(s => `<span class="shell-badge">${s}e⁻</span>`).join('')}</div>` : ''}
 
       <div class="stat" style="border-top:none; padding-top:16px;">
-        <div class="label">Discovered by</div>
-        <div class="value" style="font-family:inherit;">${fmt(el.discovered_by)}</div>
+        <div class="label">Discovered</div>
+        <div class="value" style="font-family:inherit;">${fmtDiscoveryYear(el.discovered_year)}${el.discovered_by && !/^unknown/i.test(el.discovered_by) ? ` — ${el.discovered_by}` : ''}</div>
       </div>
 
       ${el.appearance ? `<div class="stat" style="border-top:none; padding-top:12px;">
@@ -642,6 +683,14 @@ function openPanel(el) {
   document.getElementById('btn3d').addEventListener('click', (e) => {
     e.target.remove();
     load3DModel(el);
+  });
+  document.getElementById('categoryTag').addEventListener('click', () => {
+    const tag = document.getElementById('categoryTag');
+    const info = document.getElementById('categoryInfo');
+    const isHidden = info.hasAttribute('hidden');
+    if (isHidden) info.removeAttribute('hidden'); else info.setAttribute('hidden', '');
+    tag.setAttribute('aria-expanded', String(isHidden));
+    tag.classList.toggle('expanded', isHidden);
   });
 
   document.getElementById('overlay').classList.add('open');

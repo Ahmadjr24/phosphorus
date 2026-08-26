@@ -384,13 +384,36 @@ a { color: inherit; text-decoration: none; }
 .panel-number { font-family: 'JetBrains Mono', monospace; color: var(--ink-dim); font-size: 0.9rem; }
 .panel-name { font-size: 1.6rem; font-weight: 500; margin: 6px 0 2px; }
 .panel-category {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   margin-top: 8px;
   padding: 3px 10px;
   border-radius: 999px;
   font-size: 0.75rem;
+  font-family: inherit;
   border: 1px solid var(--border);
+  background: none;
   color: var(--ink-dim);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.panel-category:hover, .panel-category.expanded {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+.panel-category .info-icon { font-size: 0.85em; opacity: 0.8; }
+
+.category-info {
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--orange);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #d8d6d0;
 }
 
 .panel-grid {
