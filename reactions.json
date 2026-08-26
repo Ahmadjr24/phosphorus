@@ -673,5 +673,1657 @@
   "deltaH": -700.92,
   "exothermic": true,
   "description": "Burning zinc produces a bright bluish-green flame and a cloud of zinc oxide, once known as philosophers wool."
+ },
+ {
+  "id": "licl",
+  "reactants": [
+   {
+    "symbol": "Li",
+    "coef": 2
+   },
+   {
+    "symbol": "Cl",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Lithium chloride",
+   "formula": "LiCl",
+   "commonName": null,
+   "cid": 433294,
+   "deltaHf": -408.27,
+   "ghsPictograms": [],
+   "ghsHCodes": [],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -816.54,
+  "exothermic": true,
+  "description": "Lithium reacts with chlorine gas to form lithium chloride, used in air conditioning dehumidifiers and lithium battery production."
+ },
+ {
+  "id": "libr",
+  "reactants": [
+   {
+    "symbol": "Li",
+    "coef": 2
+   },
+   {
+    "symbol": "Br",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Lithium bromide",
+   "formula": "LiBr",
+   "commonName": null,
+   "cid": 82050,
+   "deltaHf": -351.2,
+   "ghsPictograms": [
+    "GHS05",
+    "GHS07",
+    "GHS08"
+   ],
+   "ghsHCodes": [
+    "H302",
+    "H314",
+    "H315",
+    "H317",
+    "H318",
+    "H319",
+    "H336",
+    "H360",
+    "H362",
+    "H370",
+    "H371",
+    "H372",
+    "H373"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -702.4,
+  "exothermic": true,
+  "description": "Lithium reacts with bromine to form lithium bromide, a highly hygroscopic salt used in industrial air conditioning systems."
+ },
+ {
+  "id": "lii",
+  "reactants": [
+   {
+    "symbol": "Li",
+    "coef": 2
+   },
+   {
+    "symbol": "I",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Lithium iodide",
+   "formula": "LiI",
+   "commonName": null,
+   "cid": 66321,
+   "deltaHf": -270.48,
+   "ghsPictograms": [
+    "GHS07",
+    "GHS09"
+   ],
+   "ghsHCodes": [
+    "H302",
+    "H315",
+    "H319",
+    "H335",
+    "H400"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -540.96,
+  "exothermic": true,
+  "description": "Lithium reacts with iodine to form lithium iodide, used as a solid electrolyte in pacemaker batteries."
+ },
+ {
+  "id": "naf",
+  "reactants": [
+   {
+    "symbol": "Na",
+    "coef": 2
+   },
+   {
+    "symbol": "F",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Sodium fluoride",
+   "formula": "NaF",
+   "commonName": "a common toothpaste additive",
+   "cid": 5235,
+   "deltaHf": -573.6,
+   "ghsPictograms": [
+    "GHS05",
+    "GHS06",
+    "GHS07",
+    "GHS08"
+   ],
+   "ghsHCodes": [
+    "H301",
+    "H314",
+    "H315",
+    "H318",
+    "H319",
+    "H341",
+    "H361",
+    "H370",
+    "H372",
+    "H373",
+    "H402"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -1147.2,
+  "exothermic": true,
+  "description": "Sodium burns in fluorine gas to form sodium fluoride, once widely used to fluoridate drinking water and toothpaste."
+ },
+ {
+  "id": "nabr",
+  "reactants": [
+   {
+    "symbol": "Na",
+    "coef": 2
+   },
+   {
+    "symbol": "Br",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Sodium bromide",
+   "formula": "NaBr",
+   "commonName": null,
+   "cid": 253881,
+   "deltaHf": -361.41,
+   "ghsPictograms": [
+    "GHS07",
+    "GHS08"
+   ],
+   "ghsHCodes": [
+    "H319",
+    "H336",
+    "H360",
+    "H361"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -722.82,
+  "exothermic": true,
+  "description": "Sodium reacts with bromine to form sodium bromide, once used medically as a sedative."
+ },
+ {
+  "id": "nai",
+  "reactants": [
+   {
+    "symbol": "Na",
+    "coef": 2
+   },
+   {
+    "symbol": "I",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Sodium iodide",
+   "formula": "NaI",
+   "commonName": null,
+   "cid": 5238,
+   "deltaHf": -287.8,
+   "ghsPictograms": [
+    "GHS07",
+    "GHS08",
+    "GHS09"
+   ],
+   "ghsHCodes": [
+    "H315",
+    "H319",
+    "H335",
+    "H372",
+    "H400",
+    "H411"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -575.6,
+  "exothermic": true,
+  "description": "Sodium reacts with iodine to form sodium iodide, used to iodize table salt and in medical imaging."
+ },
+ {
+  "id": "rbf",
+  "reactants": [
+   {
+    "symbol": "Rb",
+    "coef": 2
+   },
+   {
+    "symbol": "F",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Rubidium fluoride",
+   "formula": "RbF",
+   "commonName": null,
+   "cid": 83473,
+   "deltaHf": -552.2,
+   "ghsPictograms": [
+    "GHS06",
+    "GHS07",
+    "GHS08"
+   ],
+   "ghsHCodes": [
+    "H301",
+    "H302",
+    "H311",
+    "H312",
+    "H315",
+    "H319",
+    "H331",
+    "H332",
+    "H335",
+    "H351"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -1104.4,
+  "exothermic": true,
+  "description": "Rubidium reacts with fluorine gas to form rubidium fluoride."
+ },
+ {
+  "id": "rbcl",
+  "reactants": [
+   {
+    "symbol": "Rb",
+    "coef": 2
+   },
+   {
+    "symbol": "Cl",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Rubidium chloride",
+   "formula": "RbCl",
+   "commonName": null,
+   "cid": 62683,
+   "deltaHf": -435.14,
+   "ghsPictograms": [],
+   "ghsHCodes": [],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -870.28,
+  "exothermic": true,
+  "description": "Rubidium reacts with chlorine gas to form rubidium chloride, used in some molecular biology cell-transformation protocols."
+ },
+ {
+  "id": "rbi",
+  "reactants": [
+   {
+    "symbol": "Rb",
+    "coef": 2
+   },
+   {
+    "symbol": "I",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Rubidium iodide",
+   "formula": "RbI",
+   "commonName": null,
+   "cid": 3423208,
+   "deltaHf": -328.7,
+   "ghsPictograms": [],
+   "ghsHCodes": [],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -657.4,
+  "exothermic": true,
+  "description": "Rubidium reacts with iodine to form rubidium iodide."
+ },
+ {
+  "id": "csf",
+  "reactants": [
+   {
+    "symbol": "Cs",
+    "coef": 2
+   },
+   {
+    "symbol": "F",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Caesium fluoride",
+   "formula": "CsF",
+   "commonName": null,
+   "cid": 25953,
+   "deltaHf": -553.5,
+   "ghsPictograms": [
+    "GHS05",
+    "GHS06",
+    "GHS07",
+    "GHS08"
+   ],
+   "ghsHCodes": [
+    "H301",
+    "H311",
+    "H314",
+    "H315",
+    "H318",
+    "H331",
+    "H361"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -1107.0,
+  "exothermic": true,
+  "description": "Caesium reacts with fluorine gas to form caesium fluoride, a useful source of fluoride ion in organic chemistry."
+ },
+ {
+  "id": "csi",
+  "reactants": [
+   {
+    "symbol": "Cs",
+    "coef": 2
+   },
+   {
+    "symbol": "I",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Caesium iodide",
+   "formula": "CsI",
+   "commonName": null,
+   "cid": 24601,
+   "deltaHf": -346.6,
+   "ghsPictograms": [
+    "GHS07",
+    "GHS09"
+   ],
+   "ghsHCodes": [
+    "H315",
+    "H317",
+    "H319",
+    "H335",
+    "H400"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -693.2,
+  "exothermic": true,
+  "description": "Caesium reacts with iodine to form caesium iodide, used as a scintillator crystal in radiation detectors."
+ },
+ {
+  "id": "bef2",
+  "reactants": [
+   {
+    "symbol": "Be",
+    "coef": 1
+   },
+   {
+    "symbol": "F",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Beryllium fluoride",
+   "formula": "BeF2",
+   "commonName": null,
+   "cid": 24589,
+   "deltaHf": -1010.0,
+   "ghsPictograms": [
+    "GHS05",
+    "GHS06",
+    "GHS07",
+    "GHS08",
+    "GHS09"
+   ],
+   "ghsHCodes": [
+    "H301",
+    "H305",
+    "H311",
+    "H314",
+    "H315",
+    "H317",
+    "H319",
+    "H330",
+    "H335",
+    "H350",
+    "H372",
+    "H411"
+   ],
+   "has3D": false
+  },
+  "productCoef": 1,
+  "deltaH": -1010.0,
+  "exothermic": true,
+  "description": "Beryllium reacts with fluorine gas to form beryllium fluoride, once explored as a component of molten-salt nuclear reactor fuel."
+ },
+ {
+  "id": "becl2",
+  "reactants": [
+   {
+    "symbol": "Be",
+    "coef": 1
+   },
+   {
+    "symbol": "Cl",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Beryllium chloride",
+   "formula": "BeCl2",
+   "commonName": null,
+   "cid": 24588,
+   "deltaHf": -494.0,
+   "ghsPictograms": [
+    "GHS06",
+    "GHS07",
+    "GHS08",
+    "GHS09"
+   ],
+   "ghsHCodes": [
+    "H301",
+    "H315",
+    "H317",
+    "H319",
+    "H330",
+    "H334",
+    "H335",
+    "H350",
+    "H372",
+    "H400",
+    "H410",
+    "H411"
+   ],
+   "has3D": false
+  },
+  "productCoef": 1,
+  "deltaH": -494.0,
+  "exothermic": true,
+  "description": "Beryllium reacts with chlorine gas to form beryllium chloride, a highly toxic covalent halide."
+ },
+ {
+  "id": "bebr2",
+  "reactants": [
+   {
+    "symbol": "Be",
+    "coef": 1
+   },
+   {
+    "symbol": "Br",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Beryllium bromide",
+   "formula": "BeBr2",
+   "commonName": null,
+   "cid": 82230,
+   "deltaHf": -353.51,
+   "ghsPictograms": [],
+   "ghsHCodes": [],
+   "has3D": false
+  },
+  "productCoef": 1,
+  "deltaH": -353.51,
+  "exothermic": true,
+  "description": "Beryllium reacts with bromine to form beryllium bromide."
+ },
+ {
+  "id": "mgf2",
+  "reactants": [
+   {
+    "symbol": "Mg",
+    "coef": 1
+   },
+   {
+    "symbol": "F",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Magnesium fluoride",
+   "formula": "MgF2",
+   "commonName": null,
+   "cid": 24546,
+   "deltaHf": -1124.2,
+   "ghsPictograms": [
+    "GHS07"
+   ],
+   "ghsHCodes": [
+    "H315",
+    "H319",
+    "H335"
+   ],
+   "has3D": false
+  },
+  "productCoef": 1,
+  "deltaH": -1124.2,
+  "exothermic": true,
+  "description": "Magnesium reacts with fluorine gas to form magnesium fluoride, prized for its optical transparency from ultraviolet to infrared."
+ },
+ {
+  "id": "mgcl2",
+  "reactants": [
+   {
+    "symbol": "Mg",
+    "coef": 1
+   },
+   {
+    "symbol": "Cl",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Magnesium chloride",
+   "formula": "MgCl2",
+   "commonName": null,
+   "cid": 24584,
+   "deltaHf": -641.1,
+   "ghsPictograms": [],
+   "ghsHCodes": [],
+   "has3D": false
+  },
+  "productCoef": 1,
+  "deltaH": -641.1,
+  "exothermic": true,
+  "description": "Magnesium reacts with chlorine gas to form magnesium chloride, widely used as a de-icing agent and dietary magnesium supplement."
+ },
+ {
+  "id": "mgbr2",
+  "reactants": [
+   {
+    "symbol": "Mg",
+    "coef": 1
+   },
+   {
+    "symbol": "Br",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Magnesium bromide",
+   "formula": "MgBr2",
+   "commonName": null,
+   "cid": 522691,
+   "deltaHf": -524.3,
+   "ghsPictograms": [],
+   "ghsHCodes": [],
+   "has3D": false
+  },
+  "productCoef": 1,
+  "deltaH": -524.3,
+  "exothermic": true,
+  "description": "Magnesium reacts with bromine to form magnesium bromide."
+ },
+ {
+  "id": "mgi2",
+  "reactants": [
+   {
+    "symbol": "Mg",
+    "coef": 1
+   },
+   {
+    "symbol": "I",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Magnesium iodide",
+   "formula": "MgI2",
+   "commonName": null,
+   "cid": 66322,
+   "deltaHf": -364.0,
+   "ghsPictograms": [
+    "GHS07"
+   ],
+   "ghsHCodes": [
+    "H315",
+    "H319"
+   ],
+   "has3D": false
+  },
+  "productCoef": 1,
+  "deltaH": -364.0,
+  "exothermic": true,
+  "description": "Magnesium reacts with iodine to form magnesium iodide."
+ },
+ {
+  "id": "cabr2",
+  "reactants": [
+   {
+    "symbol": "Ca",
+    "coef": 1
+   },
+   {
+    "symbol": "Br",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Calcium bromide",
+   "formula": "CaBr2",
+   "commonName": null,
+   "cid": 24608,
+   "deltaHf": -647.9,
+   "ghsPictograms": [],
+   "ghsHCodes": [],
+   "has3D": false
+  },
+  "productCoef": 1,
+  "deltaH": -647.9,
+  "exothermic": true,
+  "description": "Calcium reacts with bromine to form calcium bromide, used in high-density drilling fluids."
+ },
+ {
+  "id": "baf2",
+  "reactants": [
+   {
+    "symbol": "Ba",
+    "coef": 1
+   },
+   {
+    "symbol": "F",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Barium fluoride",
+   "formula": "BaF2",
+   "commonName": null,
+   "cid": 62670,
+   "deltaHf": -1207.1,
+   "ghsPictograms": [
+    "GHS06",
+    "GHS07",
+    "GHS08"
+   ],
+   "ghsHCodes": [
+    "H301",
+    "H302",
+    "H319",
+    "H332",
+    "H335",
+    "H361",
+    "H372"
+   ],
+   "has3D": false
+  },
+  "productCoef": 1,
+  "deltaH": -1207.1,
+  "exothermic": true,
+  "description": "Barium reacts with fluorine gas to form barium fluoride, valued for its wide optical transparency window."
+ },
+ {
+  "id": "bacl2",
+  "reactants": [
+   {
+    "symbol": "Ba",
+    "coef": 1
+   },
+   {
+    "symbol": "Cl",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Barium chloride",
+   "formula": "BaCl2",
+   "commonName": null,
+   "cid": 25204,
+   "deltaHf": -858.56,
+   "ghsPictograms": [
+    "GHS06",
+    "GHS07",
+    "GHS08"
+   ],
+   "ghsHCodes": [
+    "H301",
+    "H315",
+    "H319",
+    "H332",
+    "H335",
+    "H336",
+    "H370",
+    "H371",
+    "H372",
+    "H373",
+    "H402",
+    "H412",
+    "H413"
+   ],
+   "has3D": false
+  },
+  "productCoef": 1,
+  "deltaH": -858.56,
+  "exothermic": true,
+  "description": "Barium reacts with chlorine gas to form barium chloride, used in fireworks to produce a green flame color and in water treatment."
+ },
+ {
+  "id": "li2o",
+  "reactants": [
+   {
+    "symbol": "Li",
+    "coef": 4
+   },
+   {
+    "symbol": "O",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Lithium oxide",
+   "formula": "Li2O",
+   "commonName": null,
+   "cid": 166630,
+   "deltaHf": -595.8,
+   "ghsPictograms": [
+    "GHS05",
+    "GHS06"
+   ],
+   "ghsHCodes": [
+    "H314",
+    "H318",
+    "H331"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -1191.6,
+  "exothermic": true,
+  "description": "Lithium burns in oxygen to form lithium oxide, used in ceramic glazes and lithium-ion battery components."
+ },
+ {
+  "id": "na2o",
+  "reactants": [
+   {
+    "symbol": "Na",
+    "coef": 4
+   },
+   {
+    "symbol": "O",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Sodium oxide",
+   "formula": "Na2O",
+   "commonName": null,
+   "cid": 73971,
+   "deltaHf": -416.0,
+   "ghsPictograms": [
+    "GHS05"
+   ],
+   "ghsHCodes": [
+    "H314",
+    "H318"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -832.0,
+  "exothermic": true,
+  "description": "Sodium burns in a limited oxygen supply to form sodium oxide (with excess oxygen it instead forms sodium peroxide)."
+ },
+ {
+  "id": "k2o",
+  "reactants": [
+   {
+    "symbol": "K",
+    "coef": 4
+   },
+   {
+    "symbol": "O",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Potassium oxide",
+   "formula": "K2O",
+   "commonName": null,
+   "cid": 9989219,
+   "deltaHf": -363.17,
+   "ghsPictograms": [
+    "GHS05"
+   ],
+   "ghsHCodes": [
+    "H314",
+    "H318"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -726.34,
+  "exothermic": true,
+  "description": "Potassium reacts with a limited oxygen supply to form potassium oxide, a component listed on fertilizer labels."
+ },
+ {
+  "id": "beo",
+  "reactants": [
+   {
+    "symbol": "Be",
+    "coef": 2
+   },
+   {
+    "symbol": "O",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Beryllium oxide",
+   "formula": "BeO",
+   "commonName": null,
+   "cid": 14775,
+   "deltaHf": -609.4,
+   "ghsPictograms": [
+    "GHS06",
+    "GHS07",
+    "GHS08"
+   ],
+   "ghsHCodes": [
+    "H301",
+    "H305",
+    "H315",
+    "H317",
+    "H319",
+    "H330",
+    "H334",
+    "H335",
+    "H350",
+    "H361",
+    "H370",
+    "H372"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -1218.8,
+  "exothermic": true,
+  "description": "Beryllium burns in oxygen to form beryllium oxide, an excellent electrical insulator and heat conductor used in some electronics."
+ },
+ {
+  "id": "sro",
+  "reactants": [
+   {
+    "symbol": "Sr",
+    "coef": 2
+   },
+   {
+    "symbol": "O",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Strontium oxide",
+   "formula": "SrO",
+   "commonName": null,
+   "cid": 73975,
+   "deltaHf": -592.0,
+   "ghsPictograms": [
+    "GHS05"
+   ],
+   "ghsHCodes": [
+    "H314",
+    "H318"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -1184.0,
+  "exothermic": true,
+  "description": "Strontium burns in oxygen to form strontium oxide, used in some specialty glasses and ceramic glazes."
+ },
+ {
+  "id": "bao",
+  "reactants": [
+   {
+    "symbol": "Ba",
+    "coef": 2
+   },
+   {
+    "symbol": "O",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Barium oxide",
+   "formula": "BaO",
+   "commonName": null,
+   "cid": 62392,
+   "deltaHf": -582.0,
+   "ghsPictograms": [
+    "GHS03",
+    "GHS05",
+    "GHS06",
+    "GHS07",
+    "GHS08"
+   ],
+   "ghsHCodes": [
+    "H271",
+    "H301",
+    "H302",
+    "H314",
+    "H315",
+    "H316",
+    "H318",
+    "H319",
+    "H320",
+    "H332",
+    "H335",
+    "H370",
+    "H371",
+    "H372"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -1164.0,
+  "exothermic": true,
+  "description": "Barium burns in oxygen to form barium oxide, used to make barium hydroxide and in vacuum-tube coatings."
+ },
+ {
+  "id": "li2s",
+  "reactants": [
+   {
+    "symbol": "Li",
+    "coef": 2
+   },
+   {
+    "symbol": "S",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Lithium sulfide",
+   "formula": "Li2S",
+   "commonName": null,
+   "cid": 10290727,
+   "deltaHf": -447.0,
+   "ghsPictograms": [],
+   "ghsHCodes": [],
+   "has3D": false
+  },
+  "productCoef": 1,
+  "deltaH": -447.0,
+  "exothermic": true,
+  "description": "Lithium reacts with sulfur to form lithium sulfide, being researched as a cathode material for next-generation lithium-sulfur batteries."
+ },
+ {
+  "id": "mgs",
+  "reactants": [
+   {
+    "symbol": "Mg",
+    "coef": 1
+   },
+   {
+    "symbol": "S",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Magnesium sulfide",
+   "formula": "MgS",
+   "commonName": null,
+   "cid": 82824,
+   "deltaHf": -347.0,
+   "ghsPictograms": [
+    "GHS02",
+    "GHS05",
+    "GHS06",
+    "GHS07",
+    "GHS09"
+   ],
+   "ghsHCodes": [
+    "H252",
+    "H302",
+    "H311",
+    "H314",
+    "H400"
+   ],
+   "has3D": false
+  },
+  "productCoef": 1,
+  "deltaH": -347.0,
+  "exothermic": true,
+  "description": "Magnesium reacts with sulfur to form magnesium sulfide."
+ },
+ {
+  "id": "lih",
+  "reactants": [
+   {
+    "symbol": "Li",
+    "coef": 2
+   },
+   {
+    "symbol": "H",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Lithium hydride",
+   "formula": "LiH",
+   "commonName": null,
+   "cid": 62714,
+   "deltaHf": -90.65,
+   "ghsPictograms": [
+    "GHS02",
+    "GHS05",
+    "GHS06",
+    "GHS07",
+    "GHS08"
+   ],
+   "ghsHCodes": [
+    "H228",
+    "H260",
+    "H301",
+    "H314",
+    "H318",
+    "H330",
+    "H331",
+    "H336",
+    "H360",
+    "H362",
+    "H370",
+    "H371",
+    "H372"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -181.3,
+  "exothermic": true,
+  "description": "Lithium reacts with hydrogen gas to form lithium hydride, used as a lightweight hydrogen storage material and in nuclear weapons design."
+ },
+ {
+  "id": "cah2",
+  "reactants": [
+   {
+    "symbol": "Ca",
+    "coef": 1
+   },
+   {
+    "symbol": "H",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Calcium hydride",
+   "formula": "CaH2",
+   "commonName": null,
+   "cid": 105052,
+   "deltaHf": -181.5,
+   "ghsPictograms": [],
+   "ghsHCodes": [],
+   "has3D": false
+  },
+  "productCoef": 1,
+  "deltaH": -181.5,
+  "exothermic": true,
+  "description": "Calcium reacts with hydrogen gas to form calcium hydride, used as a drying agent for solvents and gases."
+ },
+ {
+  "id": "alf3",
+  "reactants": [
+   {
+    "symbol": "Al",
+    "coef": 2
+   },
+   {
+    "symbol": "F",
+    "coef": 3
+   }
+  ],
+  "product": {
+   "name": "Aluminium fluoride",
+   "formula": "AlF3",
+   "commonName": null,
+   "cid": 2124,
+   "deltaHf": -1510.4,
+   "ghsPictograms": [
+    "GHS06",
+    "GHS07",
+    "GHS08"
+   ],
+   "ghsHCodes": [
+    "H301",
+    "H319",
+    "H335",
+    "H361",
+    "H372"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -3020.8,
+  "exothermic": true,
+  "description": "Aluminum reacts with fluorine gas to form aluminum fluoride, used in the industrial production of aluminum metal."
+ },
+ {
+  "id": "alcl3",
+  "reactants": [
+   {
+    "symbol": "Al",
+    "coef": 2
+   },
+   {
+    "symbol": "Cl",
+    "coef": 3
+   }
+  ],
+  "product": {
+   "name": "Aluminium chloride",
+   "formula": "AlCl3",
+   "commonName": null,
+   "cid": 24012,
+   "deltaHf": -704.2,
+   "ghsPictograms": [
+    "GHS05",
+    "GHS07",
+    "GHS08",
+    "GHS09"
+   ],
+   "ghsHCodes": [
+    "H290",
+    "H302",
+    "H314",
+    "H315",
+    "H318",
+    "H319",
+    "H341",
+    "H361",
+    "H373"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -1408.4,
+  "exothermic": true,
+  "description": "Aluminum reacts with chlorine gas to form aluminum chloride, a widely used catalyst in organic chemistry (Friedel-Crafts reactions)."
+ },
+ {
+  "id": "al2o3",
+  "reactants": [
+   {
+    "symbol": "Al",
+    "coef": 4
+   },
+   {
+    "symbol": "O",
+    "coef": 3
+   }
+  ],
+  "product": {
+   "name": "Aluminium oxide",
+   "formula": "Al2O3",
+   "commonName": "alumina",
+   "cid": 9989226,
+   "deltaHf": -1675.7,
+   "ghsPictograms": [
+    "GHS07",
+    "GHS08"
+   ],
+   "ghsHCodes": [
+    "H335",
+    "H372"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -3351.4,
+  "exothermic": true,
+  "description": "Aluminum burns in oxygen to form aluminum oxide (alumina), the same compound that makes up the gemstones ruby and sapphire."
+ },
+ {
+  "id": "al2s3",
+  "reactants": [
+   {
+    "symbol": "Al",
+    "coef": 2
+   },
+   {
+    "symbol": "S",
+    "coef": 3
+   }
+  ],
+  "product": {
+   "name": "Aluminium sulfide",
+   "formula": "Al2S3",
+   "commonName": null,
+   "cid": 16684788,
+   "deltaHf": -724.0,
+   "ghsPictograms": [],
+   "ghsHCodes": [],
+   "has3D": false
+  },
+  "productCoef": 1,
+  "deltaH": -724.0,
+  "exothermic": true,
+  "description": "Aluminum reacts with sulfur to form aluminum sulfide, which releases hydrogen sulfide gas on contact with water."
+ },
+ {
+  "id": "agcl",
+  "reactants": [
+   {
+    "symbol": "Ag",
+    "coef": 2
+   },
+   {
+    "symbol": "Cl",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Silver chloride",
+   "formula": "AgCl",
+   "commonName": null,
+   "cid": 24561,
+   "deltaHf": -127.0,
+   "ghsPictograms": [
+    "GHS05",
+    "GHS07",
+    "GHS09"
+   ],
+   "ghsHCodes": [
+    "H290",
+    "H335",
+    "H400",
+    "H410"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -254.0,
+  "exothermic": true,
+  "description": "Silver reacts with chlorine gas to form silver chloride, a light-sensitive compound central to traditional photographic film."
+ },
+ {
+  "id": "agbr",
+  "reactants": [
+   {
+    "symbol": "Ag",
+    "coef": 2
+   },
+   {
+    "symbol": "Br",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Silver bromide",
+   "formula": "AgBr",
+   "commonName": null,
+   "cid": 66199,
+   "deltaHf": -100.0,
+   "ghsPictograms": [
+    "GHS08",
+    "GHS09"
+   ],
+   "ghsHCodes": [
+    "H360",
+    "H400",
+    "H410"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -200.0,
+  "exothermic": true,
+  "description": "Silver reacts with bromine to form silver bromide, historically the most important light-sensitive compound in photographic film."
+ },
+ {
+  "id": "agi",
+  "reactants": [
+   {
+    "symbol": "Ag",
+    "coef": 2
+   },
+   {
+    "symbol": "I",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Silver iodide",
+   "formula": "AgI",
+   "commonName": null,
+   "cid": 6432717,
+   "deltaHf": -61.8,
+   "ghsPictograms": [],
+   "ghsHCodes": [],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -123.6,
+  "exothermic": true,
+  "description": "Silver reacts with iodine to form silver iodide, used to seed clouds and artificially induce rain."
+ },
+ {
+  "id": "pbcl2",
+  "reactants": [
+   {
+    "symbol": "Pb",
+    "coef": 1
+   },
+   {
+    "symbol": "Cl",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Lead(II) chloride",
+   "formula": "PbCl2",
+   "commonName": null,
+   "cid": 166945,
+   "deltaHf": -359.41,
+   "ghsPictograms": [],
+   "ghsHCodes": [],
+   "has3D": false
+  },
+  "productCoef": 1,
+  "deltaH": -359.41,
+  "exothermic": true,
+  "description": "Lead reacts with chlorine gas to form lead(II) chloride, once used in the manufacture of some pigments and glass."
+ },
+ {
+  "id": "no",
+  "reactants": [
+   {
+    "symbol": "N",
+    "coef": 1
+   },
+   {
+    "symbol": "O",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Nitric oxide",
+   "formula": "NO",
+   "commonName": null,
+   "cid": 145068,
+   "deltaHf": 90.29,
+   "ghsPictograms": [
+    "GHS03",
+    "GHS04",
+    "GHS05",
+    "GHS06",
+    "GHS08"
+   ],
+   "ghsHCodes": [
+    "H270",
+    "H280",
+    "H314",
+    "H318",
+    "H330",
+    "H331",
+    "H370",
+    "H373"
+   ],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": 180.58,
+  "exothermic": false,
+  "description": "Nitrogen and oxygen normally coexist peacefully in air, but at very high temperatures (lightning, combustion engines) they combine to form nitric oxide -- an endothermic reaction that only runs forward under extreme heat."
+ },
+ {
+  "id": "pcl3",
+  "reactants": [
+   {
+    "symbol": "P",
+    "coef": 2
+   },
+   {
+    "symbol": "Cl",
+    "coef": 3
+   }
+  ],
+  "product": {
+   "name": "Phosphorus trichloride",
+   "formula": "PCl3",
+   "commonName": null,
+   "cid": 24387,
+   "deltaHf": -319.7,
+   "ghsPictograms": [
+    "GHS02",
+    "GHS05",
+    "GHS06",
+    "GHS07",
+    "GHS08"
+   ],
+   "ghsHCodes": [
+    "H260",
+    "H290",
+    "H300",
+    "H312",
+    "H314",
+    "H318",
+    "H330",
+    "H370",
+    "H372",
+    "H373"
+   ],
+   "has3D": true
+  },
+  "productCoef": 2,
+  "deltaH": -639.4,
+  "exothermic": true,
+  "description": "Phosphorus burns in a limited supply of chlorine gas to form phosphorus trichloride, a major industrial intermediate for making pesticides and flame retardants."
+ },
+ {
+  "id": "sicl4",
+  "reactants": [
+   {
+    "symbol": "Si",
+    "coef": 1
+   },
+   {
+    "symbol": "Cl",
+    "coef": 2
+   }
+  ],
+  "product": {
+   "name": "Silicon tetrachloride",
+   "formula": "SiCl4",
+   "commonName": null,
+   "cid": 24816,
+   "deltaHf": -687.0,
+   "ghsPictograms": [
+    "GHS05",
+    "GHS06",
+    "GHS07",
+    "GHS08"
+   ],
+   "ghsHCodes": [
+    "H301",
+    "H314",
+    "H315",
+    "H318",
+    "H319",
+    "H331",
+    "H335",
+    "H370",
+    "H371"
+   ],
+   "has3D": true
+  },
+  "productCoef": 1,
+  "deltaH": -687.0,
+  "exothermic": true,
+  "description": "Silicon reacts with chlorine gas to form silicon tetrachloride, a key intermediate in producing ultra-pure silicon for computer chips."
+ },
+ {
+  "id": "b2o3",
+  "reactants": [
+   {
+    "symbol": "B",
+    "coef": 4
+   },
+   {
+    "symbol": "O",
+    "coef": 3
+   }
+  ],
+  "product": {
+   "name": "Boron trioxide",
+   "formula": "B2O3",
+   "commonName": null,
+   "cid": 518682,
+   "deltaHf": -1254.0,
+   "ghsPictograms": [],
+   "ghsHCodes": [],
+   "has3D": false
+  },
+  "productCoef": 2,
+  "deltaH": -2508.0,
+  "exothermic": true,
+  "description": "Boron burns in oxygen to form boron trioxide, the key ingredient that gives borosilicate glass (like Pyrex) its heat resistance."
+ },
+ {
+  "id": "h2s",
+  "reactants": [
+   {
+    "symbol": "H",
+    "coef": 1
+   },
+   {
+    "symbol": "S",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Hydrogen sulfide",
+   "formula": "H2S",
+   "commonName": null,
+   "cid": 402,
+   "deltaHf": -21.0,
+   "ghsPictograms": [
+    "GHS02",
+    "GHS04",
+    "GHS06",
+    "GHS07",
+    "GHS08",
+    "GHS09"
+   ],
+   "ghsHCodes": [
+    "H220",
+    "H280",
+    "H319",
+    "H330",
+    "H370",
+    "H400"
+   ],
+   "has3D": true
+  },
+  "productCoef": 1,
+  "deltaH": -21.0,
+  "exothermic": true,
+  "description": "Hydrogen gas reacts with sulfur to form hydrogen sulfide, the toxic gas responsible for the smell of rotten eggs."
+ },
+ {
+  "id": "cs2",
+  "reactants": [
+   {
+    "symbol": "C",
+    "coef": 1
+   },
+   {
+    "symbol": "S",
+    "coef": 2
+   }
+  ],
+  "product": {
+   "name": "Carbon disulfide",
+   "formula": "CS2",
+   "commonName": null,
+   "cid": 6348,
+   "deltaHf": 88.7,
+   "ghsPictograms": [
+    "GHS02",
+    "GHS06",
+    "GHS07",
+    "GHS08",
+    "GHS09"
+   ],
+   "ghsHCodes": [
+    "H224",
+    "H225",
+    "H303",
+    "H305",
+    "H315",
+    "H319",
+    "H331",
+    "H332",
+    "H335",
+    "H336",
+    "H341",
+    "H360",
+    "H361",
+    "H362",
+    "H370",
+    "H371",
+    "H372",
+    "H401",
+    "H411"
+   ],
+   "has3D": true
+  },
+  "productCoef": 1,
+  "deltaH": 88.7,
+  "exothermic": false,
+  "description": "Carbon reacts with sulfur vapor to form carbon disulfide, a volatile, highly flammable solvent."
+ },
+ {
+  "id": "sf6",
+  "reactants": [
+   {
+    "symbol": "S",
+    "coef": 1
+   },
+   {
+    "symbol": "F",
+    "coef": 3
+   }
+  ],
+  "product": {
+   "name": "Sulfur hexafluoride",
+   "formula": "SF6",
+   "commonName": null,
+   "cid": 17358,
+   "deltaHf": -1209.0,
+   "ghsPictograms": [
+    "GHS04",
+    "GHS07"
+   ],
+   "ghsHCodes": [
+    "H280",
+    "H336"
+   ],
+   "has3D": false
+  },
+  "productCoef": 1,
+  "deltaH": -1209.0,
+  "exothermic": true,
+  "description": "Sulfur burns in fluorine gas to form sulfur hexafluoride, an extremely stable, chemically inert gas used as an electrical insulator."
  }
 ]

@@ -349,11 +349,11 @@ function coefStr(n) {
   return n === 1 ? '' : `${n} `;
 }
 
-function findReaction(numA, numB) {
+function findReactions(numA, numB) {
   const a = ELEMENTS.find(e => e.number === numA);
   const b = ELEMENTS.find(e => e.number === numB);
   const symbols = new Set([a.symbol, b.symbol]);
-  return REACTIONS.find(r => r.reactants.length === 2 &&
+  return REACTIONS.filter(r => r.reactants.length === 2 &&
     symbols.has(r.reactants[0].symbol) && symbols.has(r.reactants[1].symbol) &&
     new Set(r.reactants.map(x => x.symbol)).size === symbols.size
   );
@@ -411,13 +411,53 @@ function ghsBadgesHTML(product) {
   ).join('');
 }
 
+function reactionCardHTML(reaction, elA, elB, idx) {
+  const [rA, rB] = reaction.reactants[0].symbol === elA.symbol ? [reaction.reactants[0], reaction.reactants[1]] : [reaction.reactants[1], reaction.reactants[0]];
+  const eA = ELEMENTS.find(e => e.symbol === rA.symbol);
+  const eB = ELEMENTS.find(e => e.symbol === rB.symbol);
+  const equation = `${coefStr(rA.coef)}${displaySymbol(eA)} + ${coefStr(rB.coef)}${displaySymbol(eB)} &rarr; ${coefStr(reaction.productCoef)}${formatFormula(reaction.product.formula)}`;
+  const holderId = `reaction3dHolder-${idx}`;
+  return `
+    <div class="reaction-equation">${equation}</div>
+    <div class="reaction-product-row">
+      <img class="reaction-product-img" src="https://pubchem.ncbi.nlm.nih.gov/image/imagefly.cgi?cid=${reaction.product.cid}&width=160&height=160" alt="${reaction.product.name} structure" loading="eager">
+      <div>
+        <div class="reaction-product-name">${reaction.product.name}${reaction.product.commonName ? ` <span class="reaction-common">(${reaction.product.commonName})</span>` : ''}</div>
+        <div class="reaction-energy ${reaction.exothermic ? 'exo' : 'endo'}">
+          ${reaction.exothermic ? 'Exothermic' : 'Endothermic'} — &Delta;H = ${reaction.deltaH} kJ/mol
+        </div>
+      </div>
+    </div>
+    <p class="reaction-desc">${reaction.description}</p>
+
+    ${reaction.product.has3D
+      ? `<button class="btn-3d btn-reaction-3d" data-cid="${reaction.product.cid}" data-holder="${holderId}" data-name="${reaction.product.name}">View real 3D structure ↗</button>
+         <div id="${holderId}" class="model3d-holder"></div>`
+      : `<p class="reaction-no3d">${reaction.product.name} is an ionic solid — a repeating crystal lattice, not a single discrete molecule — so there is no one "3D structure" to show it as. (Compare that to covalent molecules like water or CO₂, which do have one.)</p>`
+    }
+
+    <div class="reaction-hazards">
+      <div class="label">GHS hazard classification (real PubChem data)</div>
+      <div class="ghs-badges">${ghsBadgesHTML(reaction.product)}</div>
+    </div>
+  `;
+}
+
 function openReactionModal(numA, numB) {
   const elA = ELEMENTS.find(e => e.number === numA);
   const elB = ELEMENTS.find(e => e.number === numB);
   const content = document.getElementById('reactionModalContent');
-  const reaction = findReaction(numA, numB);
+  const reactions = findReactions(numA, numB);
 
-  if (!reaction) {
+  const header = `
+    <div class="reaction-header">
+      <span class="reaction-symbol" style="color:${categoryColor(elA.category)}">${elA.symbol}</span>
+      <span class="reaction-plus">+</span>
+      <span class="reaction-symbol" style="color:${categoryColor(elB.category)}">${elB.symbol}</span>
+    </div>
+  `;
+
+  if (reactions.length === 0) {
     content.innerHTML = `
       <div class="reaction-header">
         <span class="reaction-symbol">${elA.symbol}</span>
@@ -426,47 +466,26 @@ function openReactionModal(numA, numB) {
       </div>
       <p class="reaction-none">No known reaction between ${elA.name} and ${elB.name} in this lab (yet). This library covers a curated set of well-documented reactions rather than every possible combination — try another pair.</p>
     `;
+  } else if (reactions.length === 1) {
+    content.innerHTML = header + reactionCardHTML(reactions[0], elA, elB, 0);
   } else {
-    const [rA, rB] = reaction.reactants[0].symbol === elA.symbol ? [reaction.reactants[0], reaction.reactants[1]] : [reaction.reactants[1], reaction.reactants[0]];
-    const eA = ELEMENTS.find(e => e.symbol === rA.symbol);
-    const eB = ELEMENTS.find(e => e.symbol === rB.symbol);
-    const equation = `${coefStr(rA.coef)}${displaySymbol(eA)} + ${coefStr(rB.coef)}${displaySymbol(eB)} &rarr; ${coefStr(reaction.productCoef)}${formatFormula(reaction.product.formula)}`;
-    content.innerHTML = `
-      <div class="reaction-header">
-        <span class="reaction-symbol" style="color:${categoryColor(eA.category)}">${elA.symbol}</span>
-        <span class="reaction-plus">+</span>
-        <span class="reaction-symbol" style="color:${categoryColor(eB.category)}">${elB.symbol}</span>
-      </div>
-      <div class="reaction-equation">${equation}</div>
-      <div class="reaction-product-row">
-        <img class="reaction-product-img" src="https://pubchem.ncbi.nlm.nih.gov/image/imagefly.cgi?cid=${reaction.product.cid}&width=160&height=160" alt="${reaction.product.name} structure" loading="eager">
-        <div>
-          <div class="reaction-product-name">${reaction.product.name}${reaction.product.commonName ? ` <span class="reaction-common">(${reaction.product.commonName})</span>` : ''}</div>
-          <div class="reaction-energy ${reaction.exothermic ? 'exo' : 'endo'}">
-            ${reaction.exothermic ? 'Exothermic' : 'Endothermic'} — &Delta;H = ${reaction.deltaH} kJ/mol
-          </div>
+    content.innerHTML = header +
+      `<p class="reaction-multi-note">Depending on reaction conditions (like the ratio of reactants), ${elA.name} and ${elB.name} can form ${reactions.length} different compounds:</p>` +
+      reactions.map((r, i) => `
+        <div class="reaction-variant">
+          <div class="reaction-variant-label">Option ${i + 1}</div>
+          ${reactionCardHTML(r, elA, elB, i)}
         </div>
-      </div>
-      <p class="reaction-desc">${reaction.description}</p>
-
-      ${reaction.product.has3D
-        ? `<button class="btn-3d" id="btnReaction3d">View real 3D structure ↗</button>
-           <div id="reaction3dHolder" class="model3d-holder"></div>`
-        : `<p class="reaction-no3d">${reaction.product.name} is an ionic solid — a repeating crystal lattice, not a single discrete molecule — so there is no one "3D structure" to show it as. (Compare that to covalent molecules like water or CO₂, which do have one.)</p>`
-      }
-
-      <div class="reaction-hazards">
-        <div class="label">GHS hazard classification (real PubChem data)</div>
-        <div class="ghs-badges">${ghsBadgesHTML(reaction.product)}</div>
-      </div>
-    `;
-    if (reaction.product.has3D) {
-      document.getElementById('btnReaction3d').addEventListener('click', (e) => {
-        e.target.remove();
-        load3DMolecule(reaction.product.cid, 'reaction3dHolder', reaction.product.name);
-      });
-    }
+      `).join('');
   }
+
+  content.querySelectorAll('.btn-reaction-3d').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const { cid, holder, name } = e.target.dataset;
+      e.target.remove();
+      load3DMolecule(cid, holder, name);
+    });
+  });
 
   document.getElementById('reactionOverlay').classList.add('open');
   document.getElementById('reactionModal').classList.add('open');
