@@ -39,6 +39,7 @@
         <button class="mode-btn" data-mode="phase">Phase at temp</button>
         <button class="mode-btn" data-mode="trend">Trends</button>
       </div>
+      <button class="compare-toggle" id="compareToggle">⇄ Compare</button>
     </div>
     <div class="mode-panel" id="modePanel"></div>
   </section>
@@ -55,6 +56,21 @@
   <button class="panel-close" id="panelClose" aria-label="Close">&times;</button>
   <div class="panel-content" id="panelContent"></div>
 </aside>
+
+<div class="compare-tray" id="compareTray" aria-hidden="true">
+  <div class="compare-tray-inner">
+    <span class="compare-tray-label">Compare:</span>
+    <div class="compare-chips" id="compareChips"></div>
+    <button class="compare-go" id="compareGo" disabled>Compare selected</button>
+    <button class="compare-clear" id="compareClear">Clear</button>
+  </div>
+</div>
+
+<div class="overlay" id="compareOverlay"></div>
+<div class="compare-modal" id="compareModal" aria-hidden="true">
+  <button class="panel-close" id="compareModalClose" aria-label="Close">&times;</button>
+  <div class="compare-modal-content" id="compareModalContent"></div>
+</div>
 
 <footer class="site-footer">
   <p>Phosphorus — 118 elements, zero filler. Data sourced from public chemistry references.</p>

@@ -79,6 +79,9 @@ let trendProperty = 'mass';
 let currentTempC = 25;
 let activeCategoryFilter = null;
 let ABUNDANCE_RANGES = {};
+let compareMode = false;
+let compareSelection = [];
+const COMPARE_MAX = 3;
 
 async function init() {
   const res = await fetch('elements.json');
@@ -89,6 +92,7 @@ async function init() {
   renderModePanel();
   wireSearch();
   wirePanel();
+  wireCompare();
 }
 
 function computeAbundanceRanges() {
@@ -119,12 +123,138 @@ function renderTable() {
       <span class="sym">${el.symbol}</span>
       <span class="name">${el.name}</span>
     `;
-    cell.addEventListener('click', () => openPanel(el));
+    cell.addEventListener('click', () => cellClicked(el));
     cell.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPanel(el); }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); cellClicked(el); }
     });
     table.appendChild(cell);
   });
+}
+
+function cellClicked(el) {
+  if (compareMode) {
+    toggleCompareSelection(el);
+  } else {
+    openPanel(el);
+  }
+}
+
+function wireCompare() {
+  document.getElementById('compareToggle').addEventListener('click', () => {
+    compareMode = !compareMode;
+    document.getElementById('compareToggle').classList.toggle('active', compareMode);
+    document.getElementById('ptable').classList.toggle('compare-active', compareMode);
+    if (!compareMode) {
+      compareSelection = [];
+      renderCompareTray();
+      document.querySelectorAll('.cell.selected').forEach(c => c.classList.remove('selected'));
+    }
+  });
+  document.getElementById('compareClear').addEventListener('click', () => {
+    compareSelection = [];
+    renderCompareTray();
+    document.querySelectorAll('.cell.selected').forEach(c => c.classList.remove('selected'));
+  });
+  document.getElementById('compareGo').addEventListener('click', openCompareModal);
+  document.getElementById('compareModalClose').addEventListener('click', closeCompareModal);
+  document.getElementById('compareOverlay').addEventListener('click', closeCompareModal);
+}
+
+function toggleCompareSelection(el) {
+  const idx = compareSelection.indexOf(el.number);
+  const cell = document.querySelector(`.cell[data-number="${el.number}"]`);
+  if (idx > -1) {
+    compareSelection.splice(idx, 1);
+    if (cell) cell.classList.remove('selected');
+  } else {
+    if (compareSelection.length >= COMPARE_MAX) {
+      const tray = document.getElementById('compareChips');
+      tray.classList.add('shake');
+      setTimeout(() => tray.classList.remove('shake'), 400);
+      return;
+    }
+    compareSelection.push(el.number);
+    if (cell) cell.classList.add('selected');
+  }
+  renderCompareTray();
+}
+
+function renderCompareTray() {
+  const tray = document.getElementById('compareTray');
+  const chips = document.getElementById('compareChips');
+  const go = document.getElementById('compareGo');
+  tray.classList.toggle('visible', compareMode && compareSelection.length > 0);
+  tray.setAttribute('aria-hidden', String(!(compareMode && compareSelection.length > 0)));
+  chips.innerHTML = compareSelection.map(num => {
+    const el = ELEMENTS.find(e => e.number === num);
+    return `<span class="compare-chip" style="border-color:${resolveColor(categoryColor(el.category))}">
+      ${el.symbol}
+      <button class="compare-chip-remove" data-number="${num}" aria-label="Remove ${el.name}">&times;</button>
+    </span>`;
+  }).join('');
+  chips.querySelectorAll('.compare-chip-remove').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const num = Number(btn.dataset.number);
+      const el = ELEMENTS.find(e => e.number === num);
+      toggleCompareSelection(el);
+    });
+  });
+  go.disabled = compareSelection.length < 2;
+}
+
+function compareRows() {
+  return [
+    { label: 'Category', get: e => categoryLabel(e.category) },
+    { label: 'Atomic mass', get: e => fmt(e.mass, ' u') },
+    { label: 'Phase (room temp)', get: e => fmt(e.phase) },
+    { label: 'Period / Group', get: e => `${fmt(e.period)} / ${fmt(e.group)}` },
+    { label: 'Block', get: e => fmt(e.block) },
+    { label: 'Density', get: e => fmt(e.density, ' g/cm³') },
+    { label: 'Electronegativity', get: e => fmt(e.electronegativity) },
+    { label: 'Melting point', get: e => fmt(e.melt, ' K') },
+    { label: 'Boiling point', get: e => fmt(e.boil, ' K') },
+    { label: 'Electron configuration', get: e => fmt(e.electron_configuration) },
+    { label: 'Discovered by', get: e => fmt(e.discovered_by) },
+  ];
+}
+
+function openCompareModal() {
+  const els = compareSelection.map(num => ELEMENTS.find(e => e.number === num));
+  const content = document.getElementById('compareModalContent');
+  const rows = compareRows();
+
+  content.innerHTML = `
+    <div class="compare-wrap" style="--compare-cols:${els.length}">
+      <div class="compare-grid">
+        ${els.map(el => `
+          <div class="compare-col">
+            <div class="compare-col-bohr">${bohrSVG(el)}</div>
+            <div class="compare-col-symbol" style="color:${categoryColor(el.category)}">${el.symbol}</div>
+            <div class="compare-col-name">${el.name}</div>
+            <div class="compare-col-number">Element ${el.number}</div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="compare-table">
+        ${rows.map(row => `
+          <div class="compare-table-row">
+            <div class="compare-table-label">${row.label}</div>
+            ${els.map(el => `<div class="compare-table-cell">${row.get(el)}</div>`).join('')}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  document.getElementById('compareOverlay').classList.add('open');
+  document.getElementById('compareModal').classList.add('open');
+  document.getElementById('compareModal').setAttribute('aria-hidden', 'false');
+}
+
+function closeCompareModal() {
+  document.getElementById('compareOverlay').classList.remove('open');
+  document.getElementById('compareModal').classList.remove('open');
+  document.getElementById('compareModal').setAttribute('aria-hidden', 'true');
 }
 
 function wireViewModes() {
