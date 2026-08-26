@@ -124,6 +124,21 @@ let currentPanelElement = null;
 const TIMELINE_MIN = 1600;
 const TIMELINE_MAX = new Date().getFullYear();
 let currentTimelineYear = 1750;
+let REACTIONS = [];
+let reactionMode = false;
+let reactionSelection = [];
+
+const GHS_LABELS = {
+  GHS01: 'Explosive',
+  GHS02: 'Flammable',
+  GHS03: 'Oxidizer',
+  GHS04: 'Compressed gas',
+  GHS05: 'Corrosive',
+  GHS06: 'Toxic',
+  GHS07: 'Irritant',
+  GHS08: 'Health hazard',
+  GHS09: 'Environmental hazard',
+};
 
 async function init() {
   const res = await fetch('elements.json');
@@ -136,6 +151,8 @@ async function init() {
   wirePanel();
   wireCompare();
   wireHashRouting();
+  fetch('reactions.json').then(r => r.json()).then(data => { REACTIONS = data; });
+  wireReactionLab();
 }
 
 function computeAbundanceRanges() {
@@ -177,6 +194,8 @@ function renderTable() {
 function cellClicked(el) {
   if (compareMode) {
     toggleCompareSelection(el);
+  } else if (reactionMode) {
+    toggleReactionSelection(el);
   } else {
     openPanel(el);
   }
@@ -298,6 +317,154 @@ function closeCompareModal() {
   document.getElementById('compareOverlay').classList.remove('open');
   document.getElementById('compareModal').classList.remove('open');
   document.getElementById('compareModal').setAttribute('aria-hidden', 'true');
+}
+
+function wireReactionLab() {
+  document.getElementById('reactionToggle').addEventListener('click', () => {
+    reactionMode = !reactionMode;
+    document.getElementById('reactionToggle').classList.toggle('active', reactionMode);
+    document.getElementById('ptable').classList.toggle('reaction-active', reactionMode);
+    if (!reactionMode) clearReactionSelection();
+  });
+  document.getElementById('reactionClear').addEventListener('click', clearReactionSelection);
+  document.getElementById('reactionModalClose').addEventListener('click', closeReactionModal);
+  document.getElementById('reactionOverlay').addEventListener('click', closeReactionModal);
+}
+
+function clearReactionSelection() {
+  reactionSelection = [];
+  renderReactionTray();
+  document.querySelectorAll('.cell.selected').forEach(c => c.classList.remove('selected'));
+}
+
+function formatFormula(formula) {
+  return formula.replace(/(\d+)/g, '<sub>$1</sub>');
+}
+
+function displaySymbol(el) {
+  return el.category === 'diatomic nonmetal' ? `${el.symbol}<sub>2</sub>` : el.symbol;
+}
+
+function coefStr(n) {
+  return n === 1 ? '' : `${n} `;
+}
+
+function findReaction(numA, numB) {
+  const a = ELEMENTS.find(e => e.number === numA);
+  const b = ELEMENTS.find(e => e.number === numB);
+  const symbols = new Set([a.symbol, b.symbol]);
+  return REACTIONS.find(r => r.reactants.length === 2 &&
+    symbols.has(r.reactants[0].symbol) && symbols.has(r.reactants[1].symbol) &&
+    new Set(r.reactants.map(x => x.symbol)).size === symbols.size
+  );
+}
+
+function toggleReactionSelection(el) {
+  const idx = reactionSelection.indexOf(el.number);
+  const cell = document.querySelector(`.cell[data-number="${el.number}"]`);
+  if (idx > -1) {
+    reactionSelection.splice(idx, 1);
+    if (cell) cell.classList.remove('selected');
+  } else {
+    if (reactionSelection.length >= 2) {
+      const tray = document.getElementById('reactionChips');
+      tray.classList.add('shake');
+      setTimeout(() => tray.classList.remove('shake'), 400);
+      return;
+    }
+    reactionSelection.push(el.number);
+    if (cell) cell.classList.add('selected');
+  }
+  renderReactionTray();
+  if (reactionSelection.length === 2) {
+    openReactionModal(reactionSelection[0], reactionSelection[1]);
+  }
+}
+
+function renderReactionTray() {
+  const tray = document.getElementById('reactionTray');
+  const chips = document.getElementById('reactionChips');
+  tray.classList.toggle('visible', reactionMode && reactionSelection.length > 0);
+  tray.setAttribute('aria-hidden', String(!(reactionMode && reactionSelection.length > 0)));
+  chips.innerHTML = reactionSelection.map(num => {
+    const el = ELEMENTS.find(e => e.number === num);
+    return `<span class="compare-chip" style="border-color:${resolveColor(categoryColor(el.category))}">
+      ${el.symbol}
+      <button class="compare-chip-remove" data-number="${num}" aria-label="Remove ${el.name}">&times;</button>
+    </span>`;
+  }).join('');
+  chips.querySelectorAll('.compare-chip-remove').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const num = Number(btn.dataset.number);
+      const el = ELEMENTS.find(e => e.number === num);
+      toggleReactionSelection(el);
+    });
+  });
+}
+
+function ghsBadgesHTML(product) {
+  if (!product.ghsPictograms || product.ghsPictograms.length === 0) {
+    return `<span class="ghs-badge ghs-none">No GHS hazard classification on file</span>`;
+  }
+  return product.ghsPictograms.map(code =>
+    `<span class="ghs-badge">${GHS_LABELS[code] || code}</span>`
+  ).join('');
+}
+
+function openReactionModal(numA, numB) {
+  const elA = ELEMENTS.find(e => e.number === numA);
+  const elB = ELEMENTS.find(e => e.number === numB);
+  const content = document.getElementById('reactionModalContent');
+  const reaction = findReaction(numA, numB);
+
+  if (!reaction) {
+    content.innerHTML = `
+      <div class="reaction-header">
+        <span class="reaction-symbol">${elA.symbol}</span>
+        <span class="reaction-plus">+</span>
+        <span class="reaction-symbol">${elB.symbol}</span>
+      </div>
+      <p class="reaction-none">No known reaction between ${elA.name} and ${elB.name} in this lab (yet). This library covers a curated set of well-documented reactions rather than every possible combination — try another pair.</p>
+    `;
+  } else {
+    const [rA, rB] = reaction.reactants[0].symbol === elA.symbol ? [reaction.reactants[0], reaction.reactants[1]] : [reaction.reactants[1], reaction.reactants[0]];
+    const eA = ELEMENTS.find(e => e.symbol === rA.symbol);
+    const eB = ELEMENTS.find(e => e.symbol === rB.symbol);
+    const equation = `${coefStr(rA.coef)}${displaySymbol(eA)} + ${coefStr(rB.coef)}${displaySymbol(eB)} &rarr; ${coefStr(reaction.productCoef)}${formatFormula(reaction.product.formula)}`;
+    content.innerHTML = `
+      <div class="reaction-header">
+        <span class="reaction-symbol" style="color:${categoryColor(eA.category)}">${elA.symbol}</span>
+        <span class="reaction-plus">+</span>
+        <span class="reaction-symbol" style="color:${categoryColor(eB.category)}">${elB.symbol}</span>
+      </div>
+      <div class="reaction-equation">${equation}</div>
+      <div class="reaction-product-row">
+        <img class="reaction-product-img" src="https://pubchem.ncbi.nlm.nih.gov/image/imagefly.cgi?cid=${reaction.product.cid}&width=160&height=160" alt="${reaction.product.name} structure" loading="eager">
+        <div>
+          <div class="reaction-product-name">${reaction.product.name}${reaction.product.commonName ? ` <span class="reaction-common">(${reaction.product.commonName})</span>` : ''}</div>
+          <div class="reaction-energy ${reaction.exothermic ? 'exo' : 'endo'}">
+            ${reaction.exothermic ? 'Exothermic' : 'Endothermic'} — &Delta;H = ${reaction.deltaH} kJ/mol
+          </div>
+        </div>
+      </div>
+      <p class="reaction-desc">${reaction.description}</p>
+      <div class="reaction-hazards">
+        <div class="label">GHS hazard classification (real PubChem data)</div>
+        <div class="ghs-badges">${ghsBadgesHTML(reaction.product)}</div>
+      </div>
+    `;
+  }
+
+  document.getElementById('reactionOverlay').classList.add('open');
+  document.getElementById('reactionModal').classList.add('open');
+  document.getElementById('reactionModal').setAttribute('aria-hidden', 'false');
+}
+
+function closeReactionModal() {
+  document.getElementById('reactionOverlay').classList.remove('open');
+  document.getElementById('reactionModal').classList.remove('open');
+  document.getElementById('reactionModal').setAttribute('aria-hidden', 'true');
+  clearReactionSelection();
 }
 
 function wireViewModes() {

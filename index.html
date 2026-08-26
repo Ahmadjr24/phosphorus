@@ -41,6 +41,7 @@
         <button class="mode-btn" data-mode="timeline">Discovery timeline</button>
       </div>
       <button class="compare-toggle" id="compareToggle">⇄ Compare</button>
+      <button class="compare-toggle" id="reactionToggle">⚗ Reaction Lab</button>
     </div>
     <div class="mode-panel" id="modePanel"></div>
   </section>
@@ -71,6 +72,20 @@
 <div class="compare-modal" id="compareModal" aria-hidden="true">
   <button class="panel-close" id="compareModalClose" aria-label="Close">&times;</button>
   <div class="compare-modal-content" id="compareModalContent"></div>
+</div>
+
+<div class="compare-tray" id="reactionTray" aria-hidden="true">
+  <div class="compare-tray-inner">
+    <span class="compare-tray-label">React:</span>
+    <div class="compare-chips" id="reactionChips"></div>
+    <button class="compare-clear" id="reactionClear">Clear</button>
+  </div>
+</div>
+
+<div class="overlay" id="reactionOverlay"></div>
+<div class="compare-modal" id="reactionModal" aria-hidden="true">
+  <button class="panel-close" id="reactionModalClose" aria-label="Close">&times;</button>
+  <div class="compare-modal-content" id="reactionModalContent"></div>
 </div>
 
 <footer class="site-footer">

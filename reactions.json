@@ -1,0 +1,658 @@
+[
+ {
+  "id": "nacl",
+  "reactants": [
+   {
+    "symbol": "Na",
+    "coef": 2
+   },
+   {
+    "symbol": "Cl",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Sodium chloride",
+   "formula": "NaCl",
+   "commonName": "table salt",
+   "cid": 5234,
+   "deltaHf": -411.12,
+   "ghsPictograms": [],
+   "ghsHCodes": []
+  },
+  "productCoef": 2,
+  "deltaH": -822.24,
+  "exothermic": true,
+  "description": "Soft, silvery sodium metal reacts violently with pale green chlorine gas in a bright yellow flame, producing ordinary table salt."
+ },
+ {
+  "id": "water",
+  "reactants": [
+   {
+    "symbol": "H",
+    "coef": 2
+   },
+   {
+    "symbol": "O",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Water",
+   "formula": "H2O",
+   "commonName": "water",
+   "cid": 962,
+   "deltaHf": -285.8,
+   "ghsPictograms": [
+    "GHS07"
+   ],
+   "ghsHCodes": [
+    "H315",
+    "H319",
+    "H335"
+   ]
+  },
+  "productCoef": 2,
+  "deltaH": -571.6,
+  "exothermic": true,
+  "description": "Hydrogen gas burns in oxygen with a pop and a small explosion, releasing a lot of energy and forming water."
+ },
+ {
+  "id": "rust",
+  "reactants": [
+   {
+    "symbol": "Fe",
+    "coef": 4
+   },
+   {
+    "symbol": "O",
+    "coef": 3
+   }
+  ],
+  "product": {
+   "name": "Iron(III) oxide",
+   "formula": "Fe2O3",
+   "commonName": "rust",
+   "cid": 518696,
+   "deltaHf": -824.2,
+   "ghsPictograms": [
+    "GHS05",
+    "GHS07",
+    "GHS08",
+    "GHS09"
+   ],
+   "ghsHCodes": [
+    "H315",
+    "H318",
+    "H319",
+    "H335",
+    "H370",
+    "H372",
+    "H411"
+   ]
+  },
+  "productCoef": 2,
+  "deltaH": -1648.4,
+  "exothermic": true,
+  "description": "Iron slowly reacts with oxygen in the air to form iron(III) oxide, the reddish-brown coating known as rust."
+ },
+ {
+  "id": "ammonia",
+  "reactants": [
+   {
+    "symbol": "N",
+    "coef": 1
+   },
+   {
+    "symbol": "H",
+    "coef": 3
+   }
+  ],
+  "product": {
+   "name": "Ammonia",
+   "formula": "NH3",
+   "commonName": "ammonia",
+   "cid": 222,
+   "deltaHf": -46.0,
+   "ghsPictograms": [
+    "GHS02",
+    "GHS04",
+    "GHS05",
+    "GHS06",
+    "GHS07",
+    "GHS08",
+    "GHS09"
+   ],
+   "ghsHCodes": [
+    "H220",
+    "H221",
+    "H280",
+    "H302",
+    "H314",
+    "H318",
+    "H331",
+    "H332",
+    "H334",
+    "H335",
+    "H341",
+    "H370",
+    "H372",
+    "H373",
+    "H400",
+    "H402",
+    "H410",
+    "H411"
+   ]
+  },
+  "productCoef": 2,
+  "deltaH": -92.0,
+  "exothermic": true,
+  "description": "The Haber process: nitrogen and hydrogen combine under industrial catalysis to make ammonia, the basis of most synthetic fertilizer."
+ },
+ {
+  "id": "co2",
+  "reactants": [
+   {
+    "symbol": "C",
+    "coef": 1
+   },
+   {
+    "symbol": "O",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Carbon dioxide",
+   "formula": "CO2",
+   "commonName": "carbon dioxide",
+   "cid": 280,
+   "deltaHf": -393.5,
+   "ghsPictograms": [
+    "GHS04",
+    "GHS07"
+   ],
+   "ghsHCodes": [
+    "H280",
+    "H281",
+    "H336"
+   ]
+  },
+  "productCoef": 1,
+  "deltaH": -393.5,
+  "exothermic": true,
+  "description": "Carbon burns completely in plenty of oxygen to form carbon dioxide, ordinary combustion."
+ },
+ {
+  "id": "co",
+  "reactants": [
+   {
+    "symbol": "C",
+    "coef": 2
+   },
+   {
+    "symbol": "O",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Carbon monoxide",
+   "formula": "CO",
+   "commonName": "carbon monoxide",
+   "cid": 281,
+   "deltaHf": -110.5,
+   "ghsPictograms": [
+    "GHS02",
+    "GHS04",
+    "GHS06",
+    "GHS08"
+   ],
+   "ghsHCodes": [
+    "H220",
+    "H221",
+    "H280",
+    "H331",
+    "H360",
+    "H370",
+    "H372",
+    "H373"
+   ]
+  },
+  "productCoef": 2,
+  "deltaH": -221.0,
+  "exothermic": true,
+  "description": "With a limited oxygen supply, carbon burns incompletely to form the colorless, odorless, toxic gas carbon monoxide."
+ },
+ {
+  "id": "so2",
+  "reactants": [
+   {
+    "symbol": "S",
+    "coef": 1
+   },
+   {
+    "symbol": "O",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Sulfur dioxide",
+   "formula": "SO2",
+   "commonName": "sulfur dioxide",
+   "cid": 1119,
+   "deltaHf": -296.81,
+   "ghsPictograms": [
+    "GHS04",
+    "GHS05",
+    "GHS06",
+    "GHS07",
+    "GHS08"
+   ],
+   "ghsHCodes": [
+    "H280",
+    "H314",
+    "H318",
+    "H319",
+    "H331",
+    "H370",
+    "H372"
+   ]
+  },
+  "productCoef": 1,
+  "deltaH": -296.81,
+  "exothermic": true,
+  "description": "Burning sulfur produces sulfur dioxide, the sharp-smelling gas responsible for acid rain and a byproduct of fossil fuel combustion."
+ },
+ {
+  "id": "mgo",
+  "reactants": [
+   {
+    "symbol": "Mg",
+    "coef": 2
+   },
+   {
+    "symbol": "O",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Magnesium oxide",
+   "formula": "MgO",
+   "commonName": "magnesium oxide",
+   "cid": 14792,
+   "deltaHf": -601.6,
+   "ghsPictograms": [
+    "GHS07"
+   ],
+   "ghsHCodes": [
+    "H319",
+    "H335"
+   ]
+  },
+  "productCoef": 2,
+  "deltaH": -1203.2,
+  "exothermic": true,
+  "description": "Magnesium ribbon burns with a dazzling white flame, so bright it was once used in photography flashbulbs and fireworks."
+ },
+ {
+  "id": "kcl",
+  "reactants": [
+   {
+    "symbol": "K",
+    "coef": 2
+   },
+   {
+    "symbol": "Cl",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Potassium chloride",
+   "formula": "KCl",
+   "commonName": "potassium chloride",
+   "cid": 4873,
+   "deltaHf": -436.0,
+   "ghsPictograms": [],
+   "ghsHCodes": []
+  },
+  "productCoef": 2,
+  "deltaH": -872.0,
+  "exothermic": true,
+  "description": "Potassium, even more reactive than sodium, reacts explosively with chlorine gas to form potassium chloride, a common salt substitute."
+ },
+ {
+  "id": "albr3",
+  "reactants": [
+   {
+    "symbol": "Al",
+    "coef": 2
+   },
+   {
+    "symbol": "Br",
+    "coef": 3
+   }
+  ],
+  "product": {
+   "name": "Aluminium bromide",
+   "formula": "AlBr3",
+   "commonName": null,
+   "cid": 24409,
+   "deltaHf": -572.5,
+   "ghsPictograms": [
+    "GHS05",
+    "GHS07"
+   ],
+   "ghsHCodes": [
+    "H302",
+    "H314"
+   ]
+  },
+  "productCoef": 2,
+  "deltaH": -1145.0,
+  "exothermic": true,
+  "description": "Powdered aluminum reacts vigorously with liquid bromine, glowing and smoking, to form aluminum bromide."
+ },
+ {
+  "id": "hcl",
+  "reactants": [
+   {
+    "symbol": "H",
+    "coef": 1
+   },
+   {
+    "symbol": "Cl",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Hydrogen chloride",
+   "formula": "HCl",
+   "commonName": "hydrochloric acid gas",
+   "cid": 313,
+   "deltaHf": -92.31,
+   "ghsPictograms": [
+    "GHS04",
+    "GHS05",
+    "GHS06",
+    "GHS07",
+    "GHS08",
+    "GHS09"
+   ],
+   "ghsHCodes": [
+    "H280",
+    "H290",
+    "H301",
+    "H314",
+    "H318",
+    "H330",
+    "H331",
+    "H334",
+    "H335",
+    "H370",
+    "H372",
+    "H400"
+   ]
+  },
+  "productCoef": 2,
+  "deltaH": -184.62,
+  "exothermic": true,
+  "description": "Hydrogen and chlorine gases combine, explosively in bright light, to form hydrogen chloride, which dissolves in water to make hydrochloric acid."
+ },
+ {
+  "id": "cao",
+  "reactants": [
+   {
+    "symbol": "Ca",
+    "coef": 2
+   },
+   {
+    "symbol": "O",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Calcium oxide",
+   "formula": "CaO",
+   "commonName": "quicklime",
+   "cid": 14778,
+   "deltaHf": -635.0,
+   "ghsPictograms": [
+    "GHS05",
+    "GHS07",
+    "GHS08"
+   ],
+   "ghsHCodes": [
+    "H302",
+    "H303",
+    "H304",
+    "H314",
+    "H315",
+    "H318",
+    "H335",
+    "H370",
+    "H371",
+    "H372"
+   ]
+  },
+  "productCoef": 2,
+  "deltaH": -1270.0,
+  "exothermic": true,
+  "description": "Calcium burns in oxygen with a brick-red flame to form calcium oxide, known as quicklime, used in cement and steelmaking."
+ },
+ {
+  "id": "zns",
+  "reactants": [
+   {
+    "symbol": "Zn",
+    "coef": 1
+   },
+   {
+    "symbol": "S",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Zinc sulfide",
+   "formula": "ZnS",
+   "commonName": null,
+   "cid": 14821,
+   "deltaHf": -204.6,
+   "ghsPictograms": [],
+   "ghsHCodes": []
+  },
+  "productCoef": 1,
+  "deltaH": -204.6,
+  "exothermic": true,
+  "description": "Zinc and sulfur powders react in a self-sustaining, glowing reaction to form zinc sulfide, a phosphorescent compound used in glow-in-the-dark materials."
+ },
+ {
+  "id": "cuo",
+  "reactants": [
+   {
+    "symbol": "Cu",
+    "coef": 2
+   },
+   {
+    "symbol": "O",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Copper(II) oxide",
+   "formula": "CuO",
+   "commonName": null,
+   "cid": 14829,
+   "deltaHf": -156.0,
+   "ghsPictograms": [],
+   "ghsHCodes": []
+  },
+  "productCoef": 2,
+  "deltaH": -312.0,
+  "exothermic": true,
+  "description": "Heated copper reacts with oxygen, turning its shiny surface black as it forms copper(II) oxide."
+ },
+ {
+  "id": "fe3o4",
+  "reactants": [
+   {
+    "symbol": "Fe",
+    "coef": 3
+   },
+   {
+    "symbol": "O",
+    "coef": 2
+   }
+  ],
+  "product": {
+   "name": "Iron(II,III) oxide",
+   "formula": "Fe3O4",
+   "commonName": "magnetite",
+   "cid": 16211978,
+   "deltaHf": -1120.89,
+   "ghsPictograms": [
+    "GHS02",
+    "GHS07"
+   ],
+   "ghsHCodes": [
+    "H252",
+    "H315",
+    "H319",
+    "H335"
+   ]
+  },
+  "productCoef": 1,
+  "deltaH": -1120.89,
+  "exothermic": true,
+  "description": "Under a more limited oxygen supply than rusting, iron forms magnetite, a naturally magnetic black iron oxide."
+ },
+ {
+  "id": "sio2",
+  "reactants": [
+   {
+    "symbol": "Si",
+    "coef": 1
+   },
+   {
+    "symbol": "O",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Silicon dioxide",
+   "formula": "SiO2",
+   "commonName": "quartz or silica",
+   "cid": 24261,
+   "deltaHf": -911.0,
+   "ghsPictograms": [
+    "GHS07",
+    "GHS08"
+   ],
+   "ghsHCodes": [
+    "H315",
+    "H319",
+    "H320",
+    "H335",
+    "H341",
+    "H350",
+    "H372",
+    "H373"
+   ]
+  },
+  "productCoef": 1,
+  "deltaH": -911.0,
+  "exothermic": true,
+  "description": "Silicon burns in oxygen to form silicon dioxide, the compound that makes up sand, quartz, and most of the crust of the Earth."
+ },
+ {
+  "id": "ali3",
+  "reactants": [
+   {
+    "symbol": "Al",
+    "coef": 2
+   },
+   {
+    "symbol": "I",
+    "coef": 3
+   }
+  ],
+  "product": {
+   "name": "Aluminium iodide",
+   "formula": "AlI3",
+   "commonName": null,
+   "cid": 82222,
+   "deltaHf": -302.9,
+   "ghsPictograms": [
+    "GHS05",
+    "GHS07"
+   ],
+   "ghsHCodes": [
+    "H314",
+    "H317"
+   ]
+  },
+  "productCoef": 2,
+  "deltaH": -605.8,
+  "exothermic": true,
+  "description": "A classic lecture demo: aluminum powder and iodine react, once triggered by a drop of water, in a burst of purple iodine vapor."
+ },
+ {
+  "id": "lif",
+  "reactants": [
+   {
+    "symbol": "Li",
+    "coef": 2
+   },
+   {
+    "symbol": "F",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Lithium fluoride",
+   "formula": "LiF",
+   "commonName": null,
+   "cid": 224478,
+   "deltaHf": -616.0,
+   "ghsPictograms": [
+    "GHS06",
+    "GHS07"
+   ],
+   "ghsHCodes": [
+    "H301",
+    "H302",
+    "H315",
+    "H319",
+    "H335"
+   ]
+  },
+  "productCoef": 2,
+  "deltaH": -1232.0,
+  "exothermic": true,
+  "description": "Lithium reacts with fluorine, the most reactive element on the table, in a fierce reaction to form lithium fluoride."
+ },
+ {
+  "id": "zno",
+  "reactants": [
+   {
+    "symbol": "Zn",
+    "coef": 2
+   },
+   {
+    "symbol": "O",
+    "coef": 1
+   }
+  ],
+  "product": {
+   "name": "Zinc oxide",
+   "formula": "ZnO",
+   "commonName": null,
+   "cid": 14806,
+   "deltaHf": -350.46,
+   "ghsPictograms": [],
+   "ghsHCodes": []
+  },
+  "productCoef": 2,
+  "deltaH": -700.92,
+  "exothermic": true,
+  "description": "Burning zinc produces a bright bluish-green flame and a cloud of zinc oxide, once known as philosophers wool."
+ }
+]

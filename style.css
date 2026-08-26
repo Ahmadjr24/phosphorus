@@ -300,7 +300,8 @@ a { color: inherit; text-decoration: none; }
 .cell.match { border-color: var(--orange); box-shadow: 0 0 0 2px var(--orange-dim); }
 .cell.dimmed { opacity: 0.25; }
 
-.ptable.compare-active .cell { cursor: copy; }
+.ptable.compare-active .cell,
+.ptable.reaction-active .cell { cursor: copy; }
 .cell.selected {
   border-color: var(--orange);
   box-shadow: 0 0 0 2px var(--orange);
@@ -728,6 +729,93 @@ a { color: inherit; text-decoration: none; }
   .compare-table-row { grid-template-columns: 100px repeat(var(--compare-cols), 1fr); gap: 6px; }
   .compare-table-cell { font-size: 0.75rem; }
   .compare-col-bohr { max-width: 100px; }
+}
+
+/* Reaction Lab */
+.reaction-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+.reaction-symbol {
+  font-size: 2.6rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+}
+.reaction-plus { font-size: 1.6rem; color: var(--ink-dim); }
+
+.reaction-none {
+  text-align: center;
+  color: var(--ink-dim);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 20px auto 0;
+  max-width: 420px;
+}
+
+.reaction-equation {
+  text-align: center;
+  font-size: 1.3rem;
+  font-family: 'JetBrains Mono', monospace;
+  margin: 18px 0;
+  color: var(--orange);
+}
+.reaction-equation sub { font-size: 0.7em; }
+
+.reaction-product-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+}
+.reaction-product-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  background: #fff;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.reaction-product-name { font-size: 1.1rem; font-weight: 500; }
+.reaction-common { color: var(--ink-dim); font-weight: 400; font-size: 0.85rem; }
+.reaction-energy {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+.reaction-energy.exo { color: #ff8787; }
+.reaction-energy.endo { color: #74c0fc; }
+
+.reaction-desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #d8d6d0;
+  margin: 16px 0;
+}
+
+.reaction-hazards { margin-top: 16px; }
+.ghs-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.ghs-badge {
+  background: color-mix(in srgb, #ff6b6b 20%, var(--bg-alt));
+  border: 1px solid color-mix(in srgb, #ff6b6b 45%, var(--border));
+  color: #ffb3b3;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+}
+.ghs-badge.ghs-none {
+  background: var(--bg-alt);
+  border-color: var(--border);
+  color: var(--ink-dim);
 }
 
 /* Footer */
