@@ -836,6 +836,16 @@ a { color: inherit; text-decoration: none; }
   object-fit: contain;
   flex-shrink: 0;
 }
+.reaction-img-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--bg);
+}
+.reaction-img-fallback sub { font-size: 0.7em; }
 .reaction-product-name { font-size: 1.1rem; font-weight: 500; }
 .reaction-common { color: var(--ink-dim); font-weight: 400; font-size: 0.85rem; }
 .reaction-energy {

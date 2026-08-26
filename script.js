@@ -402,6 +402,22 @@ function renderReactionTray() {
   });
 }
 
+function handleProductImgError(img) {
+  const retries = Number(img.dataset.retries || 0);
+  if (retries < 1) {
+    img.dataset.retries = String(retries + 1);
+    setTimeout(() => {
+      const cid = img.src.match(/cid=(\d+)/)[1];
+      img.src = `https://pubchem.ncbi.nlm.nih.gov/image/imagefly.cgi?cid=${cid}&width=160&height=160&_r=${Date.now()}`;
+    }, 900);
+    return;
+  }
+  const fallback = document.createElement('div');
+  fallback.className = 'reaction-product-img reaction-img-fallback';
+  fallback.innerHTML = formatFormula(img.dataset.formula);
+  img.replaceWith(fallback);
+}
+
 function ghsBadgesHTML(product) {
   if (!product.ghsPictograms || product.ghsPictograms.length === 0) {
     return `<span class="ghs-badge ghs-none">No GHS hazard classification on file</span>`;
@@ -420,7 +436,7 @@ function reactionCardHTML(reaction, elA, elB, idx) {
   return `
     <div class="reaction-equation">${equation}</div>
     <div class="reaction-product-row">
-      <img class="reaction-product-img" src="https://pubchem.ncbi.nlm.nih.gov/image/imagefly.cgi?cid=${reaction.product.cid}&width=160&height=160" alt="${reaction.product.name} structure" loading="eager">
+      <img class="reaction-product-img" src="https://pubchem.ncbi.nlm.nih.gov/image/imagefly.cgi?cid=${reaction.product.cid}&width=160&height=160" alt="${reaction.product.name} structure" loading="eager" data-formula="${reaction.product.formula}" onerror="handleProductImgError(this)">
       <div>
         <div class="reaction-product-name">${reaction.product.name}${reaction.product.commonName ? ` <span class="reaction-common">(${reaction.product.commonName})</span>` : ''}</div>
         <div class="reaction-energy ${reaction.exothermic ? 'exo' : 'endo'}">
