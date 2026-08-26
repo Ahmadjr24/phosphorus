@@ -576,6 +576,33 @@ a { color: inherit; text-decoration: none; }
   padding: 24px 0;
 }
 
+.model-loading {
+  text-align: center;
+  color: var(--ink-dim);
+  font-size: 0.85rem;
+  padding: 24px 0;
+}
+
+.model3d-holder.molviewer {
+  width: 100%;
+  height: 280px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.reaction-no3d {
+  font-size: 0.82rem;
+  color: var(--ink-dim);
+  line-height: 1.6;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin: 4px 0;
+}
+
 /* Compare */
 .compare-tray {
   position: fixed;

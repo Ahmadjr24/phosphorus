@@ -448,16 +448,49 @@ function openReactionModal(numA, numB) {
         </div>
       </div>
       <p class="reaction-desc">${reaction.description}</p>
+
+      ${reaction.product.has3D
+        ? `<button class="btn-3d" id="btnReaction3d">View real 3D structure ↗</button>
+           <div id="reaction3dHolder" class="model3d-holder"></div>`
+        : `<p class="reaction-no3d">${reaction.product.name} is an ionic solid — a repeating crystal lattice, not a single discrete molecule — so there is no one "3D structure" to show it as. (Compare that to covalent molecules like water or CO₂, which do have one.)</p>`
+      }
+
       <div class="reaction-hazards">
         <div class="label">GHS hazard classification (real PubChem data)</div>
         <div class="ghs-badges">${ghsBadgesHTML(reaction.product)}</div>
       </div>
     `;
+    if (reaction.product.has3D) {
+      document.getElementById('btnReaction3d').addEventListener('click', (e) => {
+        e.target.remove();
+        load3DMolecule(reaction.product.cid, 'reaction3dHolder', reaction.product.name);
+      });
+    }
   }
 
   document.getElementById('reactionOverlay').classList.add('open');
   document.getElementById('reactionModal').classList.add('open');
   document.getElementById('reactionModal').setAttribute('aria-hidden', 'false');
+}
+
+async function load3DMolecule(cid, holderId, name) {
+  const holder = document.getElementById(holderId);
+  holder.innerHTML = `<p class="model-loading">Loading 3D structure…</p>`;
+  try {
+    const res = await fetch(`https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${cid}/SDF?record_type=3d`);
+    if (!res.ok) throw new Error('No 3D structure available');
+    const sdf = await res.text();
+    holder.innerHTML = '';
+    holder.classList.add('molviewer');
+    const viewer = window.$3Dmol.createViewer(holder, { backgroundColor: '0x14171b' });
+    viewer.addModel(sdf, 'sdf');
+    viewer.setStyle({}, { stick: { radius: 0.15 }, sphere: { scale: 0.28 } });
+    viewer.zoomTo();
+    viewer.render();
+    viewer.spin('y', 0.6);
+  } catch (err) {
+    holder.innerHTML = `<p class="model-unavailable">Could not load the 3D structure for ${name} right now.</p>`;
+  }
 }
 
 function closeReactionModal() {
