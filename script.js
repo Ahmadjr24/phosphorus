@@ -117,6 +117,70 @@ function fmt(value, unit) {
   return `${value}${unit || ''}`;
 }
 
+function bohrSVG(el) {
+  const shells = el.shells || [];
+  const size = 340;
+  const c = size / 2;
+  const color = categoryColor(el.category).startsWith('var') ? getComputedStyle(document.documentElement).getPropertyValue(categoryColor(el.category).slice(4, -1)).trim() : categoryColor(el.category);
+  const innerR = 32;
+  const outerR = 150;
+  const step = shells.length > 1 ? (outerR - innerR) / (shells.length - 1) : 0;
+
+  let rings = '';
+  let electrons = '';
+  shells.forEach((count, i) => {
+    const r = shells.length === 1 ? outerR * 0.7 : innerR + step * i;
+    rings += `<circle cx="${c}" cy="${c}" r="${r}" class="bohr-ring" />`;
+    const dur = (5 + i * 3.2).toFixed(1);
+    let dots = '';
+    for (let k = 0; k < count; k++) {
+      const angle = (360 / count) * k;
+      const rad = (angle * Math.PI) / 180;
+      const ex = c + r * Math.cos(rad);
+      const ey = c + r * Math.sin(rad);
+      dots += `<circle cx="${ex.toFixed(2)}" cy="${ey.toFixed(2)}" r="4.5" class="bohr-electron" />`;
+    }
+    electrons += `<g>
+      <animateTransform attributeName="transform" type="rotate" from="0 ${c} ${c}" to="360 ${c} ${c}" dur="${dur}s" repeatCount="indefinite" />
+      ${dots}
+    </g>`;
+  });
+
+  return `<svg viewBox="0 0 ${size} ${size}" class="bohr-svg" role="img" aria-label="Bohr diagram of ${el.name}">
+    ${rings}
+    ${electrons}
+    <circle cx="${c}" cy="${c}" r="20" fill="${color}" class="bohr-nucleus" />
+    <text x="${c}" y="${c + 5}" text-anchor="middle" class="bohr-nucleus-label">${el.symbol}</text>
+  </svg>`;
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.dataset.pane === tab));
+}
+
+function load3DModel(el) {
+  const holder = document.getElementById('model3dHolder');
+  if (!el.bohr_3d) {
+    holder.innerHTML = `<p class="model-unavailable">No 3D model available for this element.</p>`;
+    return;
+  }
+  holder.innerHTML = `<model-viewer
+      src="${el.bohr_3d}"
+      alt="3D atomic model of ${el.name}"
+      loading="eager"
+      reveal="auto"
+      camera-controls
+      auto-rotate
+      auto-rotate-delay="0"
+      rotation-per-second="18deg"
+      exposure="1.1"
+      shadow-intensity="0.6"
+      interaction-prompt="none"
+      class="model-viewer-el">
+    </model-viewer>`;
+}
+
 function openPanel(el) {
   const content = document.getElementById('panelContent');
   content.innerHTML = `
@@ -125,36 +189,59 @@ function openPanel(el) {
     <div class="panel-name">${el.name}</div>
     <span class="panel-category">${categoryLabel(el.category)}</span>
 
-    <div class="panel-grid">
-      <div class="stat"><div class="label">Atomic mass</div><div class="value">${fmt(el.mass, ' u')}</div></div>
-      <div class="stat"><div class="label">Phase</div><div class="value">${fmt(el.phase)}</div></div>
-      <div class="stat"><div class="label">Period / Group</div><div class="value">${fmt(el.period)} / ${fmt(el.group)}</div></div>
-      <div class="stat"><div class="label">Block</div><div class="value">${fmt(el.block)}</div></div>
-      <div class="stat"><div class="label">Density</div><div class="value">${fmt(el.density, ' g/cm³')}</div></div>
-      <div class="stat"><div class="label">Electronegativity</div><div class="value">${fmt(el.electronegativity)}</div></div>
-      <div class="stat"><div class="label">Melting point</div><div class="value">${fmt(el.melt, ' K')}</div></div>
-      <div class="stat"><div class="label">Boiling point</div><div class="value">${fmt(el.boil, ' K')}</div></div>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="overview">Overview</button>
+      <button class="tab-btn" data-tab="atom">Atom model</button>
     </div>
 
-    <div class="stat" style="border-top:none; padding-top:0;">
-      <div class="label">Electron configuration</div>
-      <div class="value">${fmt(el.electron_configuration)}</div>
+    <div class="tab-pane active" data-pane="overview">
+      <div class="panel-grid">
+        <div class="stat"><div class="label">Atomic mass</div><div class="value">${fmt(el.mass, ' u')}</div></div>
+        <div class="stat"><div class="label">Phase</div><div class="value">${fmt(el.phase)}</div></div>
+        <div class="stat"><div class="label">Period / Group</div><div class="value">${fmt(el.period)} / ${fmt(el.group)}</div></div>
+        <div class="stat"><div class="label">Block</div><div class="value">${fmt(el.block)}</div></div>
+        <div class="stat"><div class="label">Density</div><div class="value">${fmt(el.density, ' g/cm³')}</div></div>
+        <div class="stat"><div class="label">Electronegativity</div><div class="value">${fmt(el.electronegativity)}</div></div>
+        <div class="stat"><div class="label">Melting point</div><div class="value">${fmt(el.melt, ' K')}</div></div>
+        <div class="stat"><div class="label">Boiling point</div><div class="value">${fmt(el.boil, ' K')}</div></div>
+      </div>
+
+      <div class="stat" style="border-top:none; padding-top:0;">
+        <div class="label">Electron configuration</div>
+        <div class="value">${fmt(el.electron_configuration)}</div>
+      </div>
+
+      ${el.shells ? `<div class="panel-shells">${el.shells.map(s => `<span class="shell-badge">${s}e⁻</span>`).join('')}</div>` : ''}
+
+      <div class="stat" style="border-top:none; padding-top:16px;">
+        <div class="label">Discovered by</div>
+        <div class="value" style="font-family:inherit;">${fmt(el.discovered_by)}</div>
+      </div>
+
+      ${el.appearance ? `<div class="stat" style="border-top:none; padding-top:12px;">
+        <div class="label">Appearance</div>
+        <div class="value" style="font-family:inherit;">${el.appearance}</div>
+      </div>` : ''}
+
+      <p class="panel-summary">${el.summary || 'No summary available for this element yet.'}</p>
     </div>
 
-    ${el.shells ? `<div class="panel-shells">${el.shells.map(s => `<span class="shell-badge">${s}e⁻</span>`).join('')}</div>` : ''}
-
-    <div class="stat" style="border-top:none; padding-top:16px;">
-      <div class="label">Discovered by</div>
-      <div class="value" style="font-family:inherit;">${fmt(el.discovered_by)}</div>
+    <div class="tab-pane" data-pane="atom">
+      <p class="atom-caption">Bohr model — ${el.shells ? el.shells.length : 0} shell${el.shells && el.shells.length === 1 ? '' : 's'}, ${el.number} electrons.</p>
+      <div class="bohr-wrap">${bohrSVG(el)}</div>
+      <button class="btn-3d" id="btn3d">View real 3D model ↗</button>
+      <div id="model3dHolder" class="model3d-holder"></div>
     </div>
-
-    ${el.appearance ? `<div class="stat" style="border-top:none; padding-top:12px;">
-      <div class="label">Appearance</div>
-      <div class="value" style="font-family:inherit;">${el.appearance}</div>
-    </div>` : ''}
-
-    <p class="panel-summary">${el.summary || 'No summary available for this element yet.'}</p>
   `;
+
+  content.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+  document.getElementById('btn3d').addEventListener('click', (e) => {
+    e.target.remove();
+    load3DModel(el);
+  });
+
   document.getElementById('overlay').classList.add('open');
   document.getElementById('panel').classList.add('open');
   document.getElementById('panel').setAttribute('aria-hidden', 'false');

@@ -192,7 +192,7 @@ a { color: inherit; text-decoration: none; }
   top: 0;
   right: 0;
   height: 100%;
-  width: min(440px, 92vw);
+  width: min(480px, 94vw);
   background: var(--bg-alt);
   border-left: 1px solid var(--border);
   transform: translateX(100%);
@@ -269,6 +269,98 @@ a { color: inherit; text-decoration: none; }
   padding: 4px 8px;
   font-size: 0.78rem;
   font-family: 'JetBrains Mono', monospace;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin: 22px 0 4px;
+  border-bottom: 1px solid var(--border);
+}
+.tab-btn {
+  background: none;
+  border: none;
+  color: var(--ink-dim);
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 8px 4px 10px;
+  margin-right: 18px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.tab-btn:hover { color: var(--ink); }
+.tab-btn.active { color: var(--orange); border-bottom-color: var(--orange); }
+
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+
+/* Atom model */
+.atom-caption {
+  color: var(--ink-dim);
+  font-size: 0.85rem;
+  margin: 16px 0 4px;
+}
+
+.bohr-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 8px 0 4px;
+}
+
+.bohr-svg { width: 100%; max-width: 320px; height: auto; }
+
+.bohr-ring {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 1;
+}
+
+.bohr-electron {
+  fill: var(--orange);
+  filter: drop-shadow(0 0 4px var(--orange-dim));
+}
+
+.bohr-nucleus { stroke: var(--bg); stroke-width: 2; }
+
+.bohr-nucleus-label {
+  fill: #0b0d10;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.btn-3d {
+  display: block;
+  margin: 14px auto 0;
+  background: transparent;
+  border: 1px solid var(--orange);
+  color: var(--orange);
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.btn-3d:hover { background: var(--orange); color: #0b0d10; }
+
+.model3d-holder { margin-top: 16px; }
+
+.model-viewer-el {
+  width: 100%;
+  height: 320px;
+  border-radius: 10px;
+  background: radial-gradient(circle at 50% 40%, #1b1f24, #0b0d10);
+  border: 1px solid var(--border);
+}
+
+.model-unavailable {
+  text-align: center;
+  color: var(--ink-dim);
+  font-size: 0.85rem;
+  padding: 24px 0;
 }
 
 /* Footer */
