@@ -82,6 +82,10 @@ let ABUNDANCE_RANGES = {};
 let compareMode = false;
 let compareSelection = [];
 const COMPARE_MAX = 3;
+let currentPanelElement = null;
+const TIMELINE_MIN = 1600;
+const TIMELINE_MAX = new Date().getFullYear();
+let currentTimelineYear = 1750;
 
 async function init() {
   const res = await fetch('elements.json');
@@ -93,6 +97,7 @@ async function init() {
   wireSearch();
   wirePanel();
   wireCompare();
+  wireHashRouting();
 }
 
 function computeAbundanceRanges() {
@@ -267,10 +272,19 @@ function wireViewModes() {
   });
 }
 
+function formatYear(year) {
+  if (year < 0) return `${Math.abs(year)} BCE`;
+  return `${year} CE`;
+}
+
 function renderModePanel() {
   const table = document.getElementById('ptable');
-  table.classList.remove('mode-category', 'mode-phase', 'mode-trend');
+  table.classList.remove('mode-category', 'mode-phase', 'mode-trend', 'mode-timeline');
   table.classList.add(`mode-${viewMode}`);
+  document.querySelectorAll('.cell').forEach(cell => {
+    cell.classList.remove('no-data', 'undiscovered');
+    cell.style.removeProperty('--cell-fill');
+  });
   const panel = document.getElementById('modePanel');
 
   if (viewMode === 'category') {
@@ -318,6 +332,46 @@ function renderModePanel() {
       applyTrendStyling();
     });
     applyTrendStyling();
+  } else if (viewMode === 'timeline') {
+    panel.innerHTML = `
+      <div class="phase-controls">
+        <input type="range" id="yearSlider" min="${TIMELINE_MIN}" max="${TIMELINE_MAX}" step="1" value="${currentTimelineYear}">
+        <div class="phase-readout">
+          <span id="yearLabel">${currentTimelineYear}</span>
+          <span class="temp-sub" id="yearCount"></span>
+        </div>
+      </div>
+      <p class="timeline-caption" id="timelineCaption"></p>
+    `;
+    document.getElementById('yearSlider').addEventListener('input', e => {
+      currentTimelineYear = Number(e.target.value);
+      document.getElementById('yearLabel').textContent = currentTimelineYear;
+      applyTimelineStyling();
+    });
+    applyTimelineStyling();
+  }
+}
+
+function applyTimelineStyling() {
+  let knownCount = 0;
+  let latest = null;
+  document.querySelectorAll('.cell').forEach(cell => {
+    const el = ELEMENTS.find(e => String(e.number) === cell.dataset.number);
+    const known = el.discovered_year <= currentTimelineYear;
+    cell.classList.toggle('undiscovered', !known);
+    if (known) {
+      knownCount++;
+      if (el.discovered_year >= 1600 && (!latest || el.discovered_year > latest.discovered_year)) {
+        latest = el;
+      }
+    }
+  });
+  document.getElementById('yearCount').textContent = `(${knownCount}/118 known)`;
+  const caption = document.getElementById('timelineCaption');
+  if (latest) {
+    caption.textContent = `Most recently discovered by ${currentTimelineYear}: ${latest.name} (${latest.discovered_year})`;
+  } else {
+    caption.textContent = `Only elements known since antiquity have been identified so far.`;
   }
 }
 
@@ -593,18 +647,46 @@ function openPanel(el) {
   document.getElementById('overlay').classList.add('open');
   document.getElementById('panel').classList.add('open');
   document.getElementById('panel').setAttribute('aria-hidden', 'false');
+
+  currentPanelElement = el.number;
+  history.pushState(null, '', `#element/${el.number}`);
+  document.title = `${el.name} (${el.symbol}) — Phosphorus`;
 }
 
 function closePanel() {
   document.getElementById('overlay').classList.remove('open');
   document.getElementById('panel').classList.remove('open');
   document.getElementById('panel').setAttribute('aria-hidden', 'true');
+
+  if (currentPanelElement !== null) {
+    currentPanelElement = null;
+    history.pushState(null, '', location.pathname + location.search);
+    document.title = 'Phosphorus — The Periodic Table, Fully Loaded';
+  }
 }
 
 function wirePanel() {
   document.getElementById('panelClose').addEventListener('click', closePanel);
   document.getElementById('overlay').addEventListener('click', closePanel);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+}
+
+function wireHashRouting() {
+  window.addEventListener('hashchange', handleHashChange);
+  handleHashChange();
+}
+
+function handleHashChange() {
+  const m = location.hash.match(/^#element\/(\d+)$/);
+  if (m) {
+    const num = Number(m[1]);
+    if (currentPanelElement !== num) {
+      const el = ELEMENTS.find(e => e.number === num);
+      if (el) openPanel(el);
+    }
+  } else if (currentPanelElement !== null) {
+    closePanel();
+  }
 }
 
 init();

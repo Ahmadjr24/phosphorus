@@ -267,6 +267,29 @@ a { color: inherit; text-decoration: none; }
   display: none;
 }
 
+.ptable.mode-timeline .cell {
+  background: color-mix(in srgb, var(--cat-color) 30%, var(--bg-alt));
+  border-color: color-mix(in srgb, var(--cat-color) 55%, var(--cell-border));
+  transition: background 0.3s, border-color 0.3s, opacity 0.3s;
+}
+.ptable.mode-timeline .cell::before { display: none; }
+.ptable.mode-timeline .cell.undiscovered {
+  background: var(--bg-alt);
+  border-color: var(--cell-border);
+  opacity: 0.15;
+}
+.ptable.mode-timeline .cell.undiscovered .sym,
+.ptable.mode-timeline .cell.undiscovered .name {
+  visibility: hidden;
+}
+
+.timeline-caption {
+  margin: 10px 0 0;
+  font-size: 0.8rem;
+  color: var(--ink-dim);
+  min-height: 1.2em;
+}
+
 .cell:hover, .cell:focus-visible {
   transform: translateY(-2px);
   box-shadow: 0 4px 14px rgba(0,0,0,0.4);
