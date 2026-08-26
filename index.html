@@ -26,10 +26,17 @@
 
 <main id="top">
   <section class="controls">
-    <div class="search-wrap">
-      <input id="search" type="text" placeholder="Search by name, symbol, or number…" autocomplete="off">
+    <div class="controls-top">
+      <div class="search-wrap">
+        <input id="search" type="text" placeholder="Search by name, symbol, or number…" autocomplete="off">
+      </div>
+      <div class="view-modes" id="viewModes" role="tablist" aria-label="Table color mode">
+        <button class="mode-btn active" data-mode="category">Category</button>
+        <button class="mode-btn" data-mode="phase">Phase at temp</button>
+        <button class="mode-btn" data-mode="trend">Trends</button>
+      </div>
     </div>
-    <div class="legend" id="legend"></div>
+    <div class="mode-panel" id="modePanel"></div>
   </section>
 
   <section class="table-wrap">

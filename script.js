@@ -11,6 +11,20 @@ const CATEGORY_COLORS = {
   'noble gas': 'var(--c-noble)',
 };
 
+const TREND_PROPERTIES = {
+  mass: { label: 'Atomic mass', unit: ' u', get: e => e.mass },
+  density: { label: 'Density', unit: ' g/cm³', get: e => e.density },
+  melt: { label: 'Melting point', unit: ' K', get: e => e.melt },
+  boil: { label: 'Boiling point', unit: ' K', get: e => e.boil },
+  electronegativity: { label: 'Electronegativity', unit: '', get: e => e.electronegativity },
+};
+
+const PHASE_COLORS = {
+  solid: '#4dabf7',
+  liquid: '#22b8cf',
+  gas: '#ff8787',
+};
+
 function categoryColor(cat) {
   if (CATEGORY_COLORS[cat]) return CATEGORY_COLORS[cat];
   if (cat.includes('noble gas')) return 'var(--c-noble)';
@@ -20,20 +34,71 @@ function categoryColor(cat) {
   return 'var(--c-unknown)';
 }
 
+function resolveColor(colorExpr) {
+  if (colorExpr.startsWith('var(')) {
+    return getComputedStyle(document.documentElement).getPropertyValue(colorExpr.slice(4, -1)).trim();
+  }
+  return colorExpr;
+}
+
 function categoryLabel(cat) {
   if (cat.startsWith('unknown')) return 'unconfirmed';
   return cat;
 }
 
+function hexToRgb(hex) {
+  const v = parseInt(hex.replace('#', ''), 16);
+  return [(v >> 16) & 255, (v >> 8) & 255, v & 255];
+}
+
+function lerpColor(c1, c2, t) {
+  const a = hexToRgb(c1), b = hexToRgb(c2);
+  const r = Math.round(a[0] + (b[0] - a[0]) * t);
+  const g = Math.round(a[1] + (b[1] - a[1]) * t);
+  const bl = Math.round(a[2] + (b[2] - a[2]) * t);
+  return `rgb(${r},${g},${bl})`;
+}
+
+function trendColor(t) {
+  if (t < 0.5) return lerpColor('#2b3a67', '#20c997', t / 0.5);
+  return lerpColor('#20c997', '#ff9500', (t - 0.5) / 0.5);
+}
+
+function phaseAt(el, tempC) {
+  const k = tempC + 273.15;
+  const melt = el.melt, boil = el.boil;
+  if (melt == null && boil == null) return null;
+  if (melt != null && k < melt) return 'solid';
+  if (boil != null && k >= boil) return 'gas';
+  return 'liquid';
+}
+
 let ELEMENTS = [];
+let viewMode = 'category';
+let trendProperty = 'mass';
+let currentTempC = 25;
+let activeCategoryFilter = null;
+let ABUNDANCE_RANGES = {};
 
 async function init() {
   const res = await fetch('elements.json');
   ELEMENTS = await res.json();
+  computeAbundanceRanges();
   renderTable();
-  renderLegend();
+  wireViewModes();
+  renderModePanel();
   wireSearch();
   wirePanel();
+}
+
+function computeAbundanceRanges() {
+  ['crust', 'universe', 'human'].forEach(key => {
+    const vals = ELEMENTS
+      .map(e => e.abundance && e.abundance[key])
+      .filter(v => v != null && v > 0)
+      .map(v => Math.log10(v));
+    ABUNDANCE_RANGES[key] = vals.length ? { min: Math.min(...vals), max: Math.max(...vals) } : null;
+  });
 }
 
 function renderTable() {
@@ -62,6 +127,70 @@ function renderTable() {
   });
 }
 
+function wireViewModes() {
+  document.querySelectorAll('.mode-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      viewMode = btn.dataset.mode;
+      document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b === btn));
+      renderModePanel();
+    });
+  });
+}
+
+function renderModePanel() {
+  const table = document.getElementById('ptable');
+  table.classList.remove('mode-category', 'mode-phase', 'mode-trend');
+  table.classList.add(`mode-${viewMode}`);
+  const panel = document.getElementById('modePanel');
+
+  if (viewMode === 'category') {
+    panel.innerHTML = `<div class="legend" id="legend"></div>`;
+    renderLegend();
+    applyCategoryStyling();
+  } else if (viewMode === 'phase') {
+    panel.innerHTML = `
+      <div class="phase-controls">
+        <input type="range" id="tempSlider" min="-260" max="6000" step="10" value="${currentTempC}">
+        <div class="phase-readout">
+          <span id="tempLabel">${currentTempC}°C</span>
+          <span class="temp-sub" id="tempLabelK">(${(currentTempC + 273.15).toFixed(0)} K)</span>
+        </div>
+      </div>
+      <div class="phase-legend">
+        <span class="legend-item"><span class="legend-swatch" style="background:${PHASE_COLORS.solid}"></span>Solid</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:${PHASE_COLORS.liquid}"></span>Liquid</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:${PHASE_COLORS.gas}"></span>Gas</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:var(--c-unknown)"></span>Unknown</span>
+      </div>
+    `;
+    document.getElementById('tempSlider').addEventListener('input', e => {
+      currentTempC = Number(e.target.value);
+      document.getElementById('tempLabel').textContent = `${currentTempC}°C`;
+      document.getElementById('tempLabelK').textContent = `(${(currentTempC + 273.15).toFixed(0)} K)`;
+      applyPhaseStyling();
+    });
+    applyPhaseStyling();
+  } else if (viewMode === 'trend') {
+    panel.innerHTML = `
+      <div class="trend-controls">
+        <select id="trendSelect">
+          ${Object.entries(TREND_PROPERTIES).map(([key, p]) => `<option value="${key}" ${key === trendProperty ? 'selected' : ''}>${p.label}</option>`).join('')}
+        </select>
+        <div class="trend-gradient-wrap">
+          <span class="trend-min" id="trendMin"></span>
+          <div class="trend-gradient-bar"></div>
+          <span class="trend-max" id="trendMax"></span>
+        </div>
+      </div>
+    `;
+    document.getElementById('trendSelect').addEventListener('change', e => {
+      trendProperty = e.target.value;
+      applyTrendStyling();
+    });
+    applyTrendStyling();
+  }
+}
+
 function renderLegend() {
   const seen = new Map();
   ELEMENTS.forEach(el => {
@@ -80,8 +209,6 @@ function renderLegend() {
   });
 }
 
-let activeCategoryFilter = null;
-
 function toggleCategoryFilter(label) {
   activeCategoryFilter = activeCategoryFilter === label ? null : label;
   document.querySelectorAll('.legend-item').forEach(item => {
@@ -93,6 +220,48 @@ function toggleCategoryFilter(label) {
     cell.classList.toggle('dimmed', activeCategoryFilter && label2 !== activeCategoryFilter);
   });
   document.getElementById('search').value = '';
+}
+
+function applyCategoryStyling() {
+  document.querySelectorAll('.cell').forEach(cell => {
+    cell.style.removeProperty('--cell-fill');
+    cell.classList.remove('no-data');
+  });
+}
+
+function applyPhaseStyling() {
+  document.querySelectorAll('.cell').forEach(cell => {
+    const el = ELEMENTS.find(e => String(e.number) === cell.dataset.number);
+    const phase = phaseAt(el, currentTempC);
+    if (phase) {
+      cell.style.setProperty('--cell-fill', PHASE_COLORS[phase]);
+      cell.classList.remove('no-data');
+    } else {
+      cell.style.removeProperty('--cell-fill');
+      cell.classList.add('no-data');
+    }
+  });
+}
+
+function applyTrendStyling() {
+  const prop = TREND_PROPERTIES[trendProperty];
+  const values = ELEMENTS.map(e => prop.get(e)).filter(v => v != null);
+  const min = Math.min(...values), max = Math.max(...values);
+  document.getElementById('trendMin').textContent = `${min}${prop.unit}`;
+  document.getElementById('trendMax').textContent = `${max}${prop.unit}`;
+
+  document.querySelectorAll('.cell').forEach(cell => {
+    const el = ELEMENTS.find(e => String(e.number) === cell.dataset.number);
+    const v = prop.get(el);
+    if (v == null || max === min) {
+      cell.style.removeProperty('--cell-fill');
+      cell.classList.toggle('no-data', v == null);
+      return;
+    }
+    const t = (v - min) / (max - min);
+    cell.style.setProperty('--cell-fill', trendColor(t));
+    cell.classList.remove('no-data');
+  });
 }
 
 function wireSearch() {
@@ -117,11 +286,58 @@ function fmt(value, unit) {
   return `${value}${unit || ''}`;
 }
 
+function fmtAbundance(v) {
+  if (v == null) return null;
+  const pct = v * 100;
+  if (pct >= 0.1) return `${pct.toFixed(pct >= 1 ? 1 : 2)}%`;
+  const ppm = v * 1e6;
+  if (ppm >= 0.1) return `${ppm.toPrecision(2)} ppm`;
+  const ppb = v * 1e9;
+  if (ppb >= 0.1) return `${ppb.toPrecision(2)} ppb`;
+  return `${(v * 1e12).toPrecision(2)} ppt`;
+}
+
+function abundancePct(key, value) {
+  const range = ABUNDANCE_RANGES[key];
+  if (value == null || value <= 0 || !range || range.max === range.min) return 0;
+  const logv = Math.log10(value);
+  return Math.max(3, ((logv - range.min) / (range.max - range.min)) * 100);
+}
+
+function abundanceBarsHTML(el) {
+  const rows = [
+    { key: 'crust', label: "Earth's crust" },
+    { key: 'universe', label: 'Universe (relative)' },
+    { key: 'human', label: 'Human body' },
+  ];
+  const bars = rows.map(({ key, label }) => {
+    const v = el.abundance ? el.abundance[key] : null;
+    if (v == null) {
+      return `<div class="abundance-row">
+        <span class="abundance-label">${label}</span>
+        <div class="abundance-bar-track"><div class="abundance-bar-fill none"></div></div>
+        <span class="abundance-value">not detected</span>
+      </div>`;
+    }
+    const pct = abundancePct(key, v);
+    const display = key === 'universe' ? v.toExponential(1) : fmtAbundance(v);
+    return `<div class="abundance-row">
+      <span class="abundance-label">${label}</span>
+      <div class="abundance-bar-track"><div class="abundance-bar-fill" style="width:${pct}%"></div></div>
+      <span class="abundance-value">${display}</span>
+    </div>`;
+  }).join('');
+  return `<div class="abundance-block">
+    <div class="label">Abundance (log scale, relative to most abundant element)</div>
+    ${bars}
+  </div>`;
+}
+
 function bohrSVG(el) {
   const shells = el.shells || [];
   const size = 340;
   const c = size / 2;
-  const color = categoryColor(el.category).startsWith('var') ? getComputedStyle(document.documentElement).getPropertyValue(categoryColor(el.category).slice(4, -1)).trim() : categoryColor(el.category);
+  const color = resolveColor(categoryColor(el.category));
   const innerR = 32;
   const outerR = 150;
   const step = shells.length > 1 ? (outerR - innerR) / (shells.length - 1) : 0;
@@ -224,6 +440,8 @@ function openPanel(el) {
       </div>` : ''}
 
       <p class="panel-summary">${el.summary || 'No summary available for this element yet.'}</p>
+
+      ${abundanceBarsHTML(el)}
     </div>
 
     <div class="tab-pane" data-pane="atom">
